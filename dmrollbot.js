@@ -97,6 +97,20 @@ module.exports = function (req, res, next) {
   botPayload.username = 'STEVE FISHER\'S ROLLBOT® BROUGHT TO YOU BY TACOBELL® QUESOLUPA™ SOMETIMES YOU GOTTA LIVE MAS!™';
   botPayload.channel = req.body.channel_id;
   botPayload.icon_emoji = ':game_die:';
+
+  // send dice roll
+  send(botPayload, function (error, status, body) {
+    if (error) {
+      return next(error);
+
+    } else if (status !== 200) {
+      // inform user that our Incoming WebHook failed
+      return next(new Error('Incoming WebHook: ' + status + ' ' + body));
+
+    } else {
+      return res.status(200).end();
+    }
+  });
 }
 
 
@@ -104,4 +118,20 @@ function roll (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+
+function send (payload, callback) {
+  var path = process.env.INCOMING_WEBHOOK_PATH;
+  var uri = 'https://hooks.slack.com/services' + path;
+ 
+  request({
+    uri: uri,
+    method: 'POST',
+    body: JSON.stringify(payload)
+  }, function (error, response, body) {
+    if (error) {
+      return callback(error);
+    }
+
+    callback(null, response.statusCode, body);
+  });
 }
