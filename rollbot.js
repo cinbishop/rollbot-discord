@@ -80,7 +80,7 @@ module.exports = function (req, res, next) {
   } 
   else {
 	if(total === rollTotal) {
-		var didCrit = " CRIT!";
+		var didCrit = randomCrit;
 	}
 	else if(total === badRoll) {
 		var didCrit = " CRITICAL MISS!"
