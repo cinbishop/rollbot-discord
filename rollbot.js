@@ -18,10 +18,11 @@ module.exports = function (req, res, next) {
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
 	if(defaultmod) {
+		console.log(defaultmod);
 		times = 1;
 		die = 20;
 		modifier = defaultmod[1];
-		modifier_value = Number(defaultmod[3]);
+		modifier_value = Number(defaultmod[2]);
 	}
     else if (matches && matches[1] && matches[2]) {
       times = matches[1];
