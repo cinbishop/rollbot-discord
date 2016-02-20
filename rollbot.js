@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
 
   if (req.body.text) {
     // parse roll type if specified
-    matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})($|\s*(\+|\-)(\d{1,2})$)/);
+    matches = req.body.text.match(/^(\d{1,2,3})d(\d{1,2,3})($|\s*(\+|\-)(\d{1,2,3})$)/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
 
