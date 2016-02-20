@@ -11,6 +11,7 @@ module.exports = function (req, res, next) {
   var total = 0;
   var botPayload = {};
   var critArray = [" CRIT!"," AWH YEAH BIG CRITS!"," CRITTY DITTY DO!"," MMM SEXY CRIT TIMES!"," CRITATTACK!"," M-M-M-MONSTER KILL!"]
+  var missArray = [" YOU SUCK B!"," YOU JUST HIT YOURSELF!"," SLICE! THERE GOES YA PENIS!"," CRITICAL MISS, NUBCAKES!"," WIGGIDTY WAM WAM WOZZLE YA MISSED!"," BABBY'S FIRST SWORD SWING!"]
   var randomCrit = critArray[Math.floor(Math.random()*critArray.length)];
 
   if (req.body.text) {
