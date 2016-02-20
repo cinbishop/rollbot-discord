@@ -58,7 +58,7 @@ module.exports = function (req, res, next) {
   } 
   else {
 	if(total === rollTotal) {
-		var didCrit = " CRIT!";
+		var didCrit = " CRIT! BROUGHT TO YOU BY MOUNTAIN DEW KICKSTART: MOUNTAIN DEW KICKSTARTER ITS A KICK IN A GLASS!";
 	}
 	else {
 		var didCrit = ""
