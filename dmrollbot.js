@@ -14,6 +14,7 @@ module.exports = function (req, res, next) {
   var missArray = [" YOU SUCK B!"," YOU JUST HIT YOURSELF!"," SLICE! THERE GOES YA PENIS!"," CRITICAL MISS, NUBCAKES!"," WIGGIDTY WAM WAM WOZZLE YA MISSED!"," BABBY'S FIRST SWORD SWING!" ," IS YOUR NAME STEVE FISHER? MAN YOU SUCK."]
   var randomCrit = critArray[Math.floor(Math.random()*critArray.length)];
   var randomMiss = missArray[Math.floor(Math.random()*missArray.length)];
+  var privateSend = "@"+req.body.user_name;
 
 
   if (req.body.text) {
@@ -95,7 +96,7 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
   botPayload.username = 'DMBOT';
-  botPayload.channel = req.body.user_name;
+  botPayload.channel = privateSend;
   botPayload.icon_emoji = ':game_die:';
 
   // send dice roll
