@@ -44,11 +44,12 @@ module.exports = function (req, res, next) {
 
   // write response message and add to payload
   if (modifier_value){
+	var unmodifiedTotal = total;
 	
-	if(total === rollTotal) {
+	if(unmodifiedTotal === rollTotal) {
 		var didCrit = " CRIT!";
 	}
-	else if(total === badRoll) {
+	else if(unmodifiedTotal === badRoll) {
 		var didCrit = " CRITICAL MISS!"
 	}
 	else {
