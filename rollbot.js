@@ -57,8 +57,8 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*';
   } 
   else {
-	if(total = rollTotal) {
-		var didCrit = "CRIT!";
+	if(total === rollTotal) {
+		var didCrit = " CRIT!";
 	}
 	else {
 		var didCrit = ""
