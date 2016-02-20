@@ -17,12 +17,6 @@ module.exports = function (req, res, next) {
     matches = req.body.text.match(/^(\d{1,3})d(\d{1,3})($|\s*(\+|\-)(\d{1,3})$)/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
-	if(defaultmod) {
-		times = 1;
-		die = 20;
-		modifier = defaultmod[1];
-		modifier_value = Number(defaultmod[2]);
-	}
     if (matches && matches[1] && matches[2]) {
       times = matches[1];
       die = matches[2];
@@ -33,7 +27,14 @@ module.exports = function (req, res, next) {
         console.log(matches[5]);
       }
 
-    } else {
+    } 
+	else if(defaultmod) {
+		times = 1;
+		die = 20;
+		modifier = defaultmod[1];
+		modifier_value = Number(defaultmod[2]);
+	}
+	else {
       // send error message back to user if input is bad
       return res.status(200).send('<number>d<sides>');
     }
