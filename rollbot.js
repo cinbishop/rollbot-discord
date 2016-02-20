@@ -66,7 +66,7 @@ module.exports = function (req, res, next) {
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload.username = 'ROLLBOT';
+  botPayload.username = 'STEVE FISHER\'S ROLLBOT® BROUGHT TO YOU BY TACOBELL QUESOLUPA';
   botPayload.channel = req.body.channel_id;
   botPayload.icon_emoji = ':game_die:';
 
