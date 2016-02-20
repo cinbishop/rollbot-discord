@@ -13,10 +13,16 @@ module.exports = function (req, res, next) {
 
   if (req.body.text) {
     // parse roll type if specified
+	defaultmod = req.body.text.match(/^($|\s*(\+|\-)(\d{1,3})$)/);
     matches = req.body.text.match(/^(\d{1,3})d(\d{1,3})($|\s*(\+|\-)(\d{1,3})$)/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
-
+	if(defaultmod) {
+		times = 1;
+		die = 20;
+		modifier = defaultmod[1];
+		modifier_value = Number(defaultmod[2]);
+	}
     if (matches && matches[1] && matches[2]) {
       times = matches[1];
       die = matches[2];
