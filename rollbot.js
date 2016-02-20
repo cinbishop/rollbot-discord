@@ -37,6 +37,7 @@ module.exports = function (req, res, next) {
   for (var i = 0; i < times; i++) {
     var currentRoll = roll(1, die);
 	var rollTotal = times*die;
+	var badRoll = times*1;
     rolls.push(currentRoll);
     total += currentRoll;
   }
@@ -59,6 +60,9 @@ module.exports = function (req, res, next) {
   else {
 	if(total === rollTotal) {
 		var didCrit = " CRIT! BROUGHT TO YOU BY MOUNTAIN DEW KICKSTART: MOUNTAIN DEW KICKSTARTER ITS A KICK IN A GLASS!";
+	}
+	else if(total === badRoll) {
+		var didCrit = " CRITICAL MISS OH MAN YOU SUCK WOW HANG UP THE OLD PENCIL AND PAPER CUZ YOU'RE DONE B!"
 	}
 	else {
 		var didCrit = ""
