@@ -62,7 +62,7 @@ module.exports = function (req, res, next) {
 		var didCrit = randomCrit;
 	}
 	else if(unmodifiedTotal === badRoll) {
-		var didCrit = " CRITICAL MISS!"
+		var didCrit = randomMiss;
 	}
 	else {
 		var didCrit = ""
@@ -86,7 +86,7 @@ module.exports = function (req, res, next) {
 		var didCrit = randomCrit;
 	}
 	else if(total === badRoll) {
-		var didCrit = " CRITICAL MISS!"
+		var didCrit = randomMiss;
 	}
 	else {
 		var didCrit = ""
