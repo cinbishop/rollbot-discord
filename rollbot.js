@@ -49,13 +49,23 @@ module.exports = function (req, res, next) {
       console.log(total)
     }
 
+	if(total === rollTotal) {
+		var didCrit = " CRIT! BROUGHT TO YOU BY MOUNTAIN DEW KICKSTART: MOUNTAIN DEW KICKSTARTER ITS A KICK IN A GLASS!";
+	}
+	else if(total === badRoll) {
+		var didCrit = " CRITICAL MISS OH MAN YOU SUCK WOW HANG UP THE OLD PENCIL AND PAPER CUZ YOU'RE DONE B!"
+	}
+	else {
+		var didCrit = ""
+	}
+
     else if(modifier == '-'){
       total = total - modifier_value;
       console.log(total)
     }
 
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
-                      rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*';
+                      rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*' + didCrit;
   } 
   else {
 	if(total === rollTotal) {
