@@ -44,16 +44,7 @@ module.exports = function (req, res, next) {
 
   // write response message and add to payload
   if (modifier_value){
-    if (modifier == '+'){
-      total = total + modifier_value;
-      console.log(total)
-    }
-
-    else if(modifier == '-'){
-      total = total - modifier_value;
-      console.log(total)
-    }
-
+	
 	if(total === rollTotal) {
 		var didCrit = " CRIT! BROUGHT TO YOU BY MOUNTAIN DEW KICKSTART: MOUNTAIN DEW KICKSTARTER ITS A KICK IN A GLASS!";
 	}
@@ -63,6 +54,16 @@ module.exports = function (req, res, next) {
 	else {
 		var didCrit = ""
 	}
+	
+    if (modifier == '+'){
+      total = total + modifier_value;
+      console.log(total)
+    }
+
+    else if(modifier == '-'){
+      total = total - modifier_value;
+      console.log(total)
+    }
 
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*' + didCrit;
