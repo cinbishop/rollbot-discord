@@ -46,10 +46,10 @@ module.exports = function (req, res, next) {
   if (modifier_value){
 	
 	if(total === rollTotal) {
-		var didCrit = " CRIT! BROUGHT TO YOU BY MOUNTAIN DEW KICKSTART: MOUNTAIN DEW KICKSTARTER ITS A KICK IN A GLASS!";
+		var didCrit = " CRIT!";
 	}
 	else if(total === badRoll) {
-		var didCrit = " CRITICAL MISS OH MAN YOU SUCK WOW HANG UP THE OLD PENCIL AND PAPER CUZ YOU'RE DONE B!"
+		var didCrit = " CRITICAL MISS!"
 	}
 	else {
 		var didCrit = ""
@@ -70,10 +70,10 @@ module.exports = function (req, res, next) {
   } 
   else {
 	if(total === rollTotal) {
-		var didCrit = " CRIT! BROUGHT TO YOU BY MOUNTAIN DEW KICKSTART: MOUNTAIN DEW KICKSTARTER ITS A KICK IN A GLASS!";
+		var didCrit = " CRIT!";
 	}
 	else if(total === badRoll) {
-		var didCrit = " CRITICAL MISS OH MAN YOU SUCK WOW HANG UP THE OLD PENCIL AND PAPER CUZ YOU'RE DONE B!"
+		var didCrit = " CRITICAL MISS!"
 	}
 	else {
 		var didCrit = ""
