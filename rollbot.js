@@ -94,7 +94,7 @@ module.exports = function (req, res, next) {
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload.username = 'JARED STARNER\'S AD-FREE ROBOT BROUGHT TO YOU BY THE GREAT TASTE OF FUCKING NOTHING'';
+  botPayload.username = 'JARED STARNER\'S AD-FREE ROBOT BROUGHT TO YOU BY THE GREAT TASTE OF FUCKING NOTHING';
   botPayload.channel = req.body.channel_id;
   botPayload.icon_emoji = ':game_die:';
 
