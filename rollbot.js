@@ -56,7 +56,7 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*';
   } 
   else {
-    botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
+    botPayload.text = req.body.user_name + ' rolled! ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*';
   }
   botPayload.username = 'ROLLBOT';
