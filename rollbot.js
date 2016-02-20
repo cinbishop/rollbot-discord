@@ -94,7 +94,7 @@ module.exports = function (req, res, next) {
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload.username = 'STEVE FISHER\'S ROLLBOT® BROUGHT TO YOU BY TACOBELL® QUESOLUPA™ SOMETIMES YOU GOTTA LIVE MAS!™ IN PARTNERSHIP WITH COCA COLA™, ENJOY THE REFRESHING TASTE OF COKE® WITH YOUR DM TODAY! PAID FOR BY THE CAPITAL ONE™ NO HASSLE® CREDIT CARD. CAPITAL ONE, WHAT\'S IN YOUR WALLET?';
+  botPayload.username = 'JARED STARNER\'S AD-FREE ROBOT BROUGHT TO YOU BY THE GREAT TASTE OF FUCKING NOTHING'';
   botPayload.channel = req.body.channel_id;
   botPayload.icon_emoji = ':game_die:';
 
