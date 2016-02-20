@@ -1,7 +1,7 @@
 var request = require('request');
 
 module.exports = function (req, res, next) {
-  // default roll is 2d6
+  // default roll is 1d20
   var matches;
   var times = 1;
   var die = 20;
@@ -12,6 +12,7 @@ module.exports = function (req, res, next) {
   var botPayload = {};
 
   if (req.body.text) {
+	modifier_value = req.body.text.match(/($|\s*(\+|\-)(\d{1,3})$)/);/);
     // parse roll type if specified
     matches = req.body.text.match(/^(\d{1,3})d(\d{1,3})($|\s*(\+|\-)(\d{1,3})$)/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
