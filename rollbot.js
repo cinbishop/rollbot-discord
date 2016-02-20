@@ -31,7 +31,7 @@ module.exports = function (req, res, next) {
 	else if(defaultmod) {
 		times = 1;
 		die = 20;
-		modifier = defaultmod[1];
+		modifier = defaultmod;
 		modifier_value = Number(defaultmod[2]);
 	}
 	else {
