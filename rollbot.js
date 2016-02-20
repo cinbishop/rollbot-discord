@@ -20,8 +20,8 @@ module.exports = function (req, res, next) {
 	if(defaultmod) {
 		times = 1;
 		die = 20;
-		modifier = defaultmod;
-		modifier_value = Number(defaultmod[1]);
+		modifier = defaultmod[1];
+		modifier_value = Number(defaultmod[3]);
 	}
     else if (matches && matches[1] && matches[2]) {
       times = matches[1];
