@@ -94,7 +94,7 @@ module.exports = function (req, res, next) {
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload.username = 'STEVE FISHER\'S ROLLBOT® BROUGHT TO YOU BY TACOBELL® QUESOLUPA™ SOMETIMES YOU GOTTA LIVE MAS!™';
+  botPayload.username = 'DMBOT';
   botPayload.response_type = 'ephemeral';
   botPayload.icon_emoji = ':game_die:';
 
