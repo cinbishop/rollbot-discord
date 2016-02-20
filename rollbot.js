@@ -11,7 +11,7 @@ module.exports = function (req, res, next) {
   var total = 0;
   var botPayload = {};
   var critArray = ["CRIT!","AWH YEAH BIG CRITS!","CRITTY DITTY DO!","MMM SEXY CRIT TIMES!","CRITATTACK!","M-M-M-MONSTER KILL!"]
-  var randomCrit = critArray[Math.floor(Math.random()*items.length)];
+  var randomCrit = critArray[Math.floor(Math.random()*critArray.length)];
 
   if (req.body.text) {
     // parse roll type if specified
