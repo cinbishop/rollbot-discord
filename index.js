@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var rollbot = require('./rollbot');
-var dmrollbot = require('./dmrollbot');
 
 
 var app = express();
@@ -12,7 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // test route
 app.post('/roll', rollbot);
-app.post('/dmroll', dmrollbot);
 
 
 // error handler
