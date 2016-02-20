@@ -12,14 +12,11 @@ module.exports = function (req, res, next) {
   var botPayload = {};
 
   if (req.body.text) {
-	modifier_included = req.body.text.match(/($|\s*(\+|\-)(\d{1,3})$)/);/);
     // parse roll type if specified
     matches = req.body.text.match(/^(\d{1,3})d(\d{1,3})($|\s*(\+|\-)(\d{1,3})$)/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
-	if(modifier_included) {
-		modifier_vaule = Number(modifer_included[1]);
-	}
+
     if (matches && matches[1] && matches[2]) {
       times = matches[1];
       die = matches[2];
