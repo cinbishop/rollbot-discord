@@ -10,6 +10,8 @@ module.exports = function (req, res, next) {
   var rolls = [];
   var total = 0;
   var botPayload = {};
+  var critArray = ["CRIT!","AWH YEAH BIG CRITS!","CRITTY DITTY DO!","MMM SEXY CRIT TIMES!","CRITATTACK!","M-M-M-MONSTER KILL!"]
+  var randomCrit = critArray[Math.floor(Math.random()*items.length)];
 
   if (req.body.text) {
     // parse roll type if specified
@@ -54,7 +56,7 @@ module.exports = function (req, res, next) {
 	var unmodifiedTotal = total;
 	
 	if(unmodifiedTotal === rollTotal) {
-		var didCrit = " CRIT!";
+		var didCrit = randomCrit;
 	}
 	else if(unmodifiedTotal === badRoll) {
 		var didCrit = " CRITICAL MISS!"
