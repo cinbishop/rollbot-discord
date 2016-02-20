@@ -36,6 +36,7 @@ module.exports = function (req, res, next) {
   // roll dice and sum
   for (var i = 0; i < times; i++) {
     var currentRoll = roll(1, die);
+	var rollTotal = times*die;
     rolls.push(currentRoll);
     total += currentRoll;
   }
@@ -56,8 +57,14 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*';
   } 
   else {
+	if(total = rollTotal) {
+		var didCrit = "CRIT!";
+	}
+	else {
+		var didCrit = ""
+	}
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
-                      rolls.join(' + ') + ' = *' + total + '*';
+                      rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
   botPayload.username = 'ROLLBOT';
   botPayload.channel = req.body.channel_id;
