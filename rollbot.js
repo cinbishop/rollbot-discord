@@ -12,8 +12,11 @@ module.exports = function (req, res, next) {
   var botPayload = {};
   var critArray = [" CRIT!"," AWH YEAH BIG CRITS!"," CRITTY DITTY DO!"," MMM SEXY CRIT TIMES!"," CRITATTACK!"," M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, DOES IT COME IN HETERO?", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!"]
   var missArray = [" YOU SUCK B!"," YOU JUST HIT YOURSELF!"," SLICE! THERE GOES YA PENIS!"," CRITICAL MISS, NUBCAKES!"," WIGGIDTY WAM WAM WOZZLE YA MISSED!"," BABBY'S FIRST SWORD SWING!" ," IS YOUR NAME STEVE FISHER? MAN YOU SUCK.", " LOLOLOLOLOLOL REZ INCOMING NUB", " THAT'S RARELY GOOD", " YA DONE GOOFED", " BIFFED IT", " BIFFED IT HARD", " WELL AT LEAST YOUR PARENTS STILL LOVE YOU", " THIS IS WHY WE CAN'T HAVE NICE THINGS", " I CAN'T BELIEVE YOU'VE DONE THIS", " GOOD JOB, [BLIND CELEBRITY NAME HERE]"]
+  var nameArray = ["ZIMZAMTHEROLLYMAN","ROLLBOT","TRANSFORMANDROLLOUTBOT","BOLLROT","ROLLYPOLLYOLLYROLLBOT","ROLLSMAN5000","CRITOMATIC","MISSOMATIC","WAMBAMROLLERMAN"];
   var randomCrit = critArray[Math.floor(Math.random()*critArray.length)];
   var randomMiss = missArray[Math.floor(Math.random()*missArray.length)];
+  var randomName = nameArray[Math.floor(Math.random()*nameArray.length)];
+
 
 
   if (req.body.text) {
@@ -94,7 +97,7 @@ module.exports = function (req, res, next) {
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload.username = 'ROLLYPOLLYOLLYROLLBOT';
+  botPayload.username = randomName;
   botPayload.channel = req.body.channel_id;
   botPayload.icon_emoji = ':game_die:';
 
