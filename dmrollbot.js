@@ -96,13 +96,13 @@ module.exports = function (req, res, next) {
     resultText = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload = "{
+  botPayload = "
 	"username": "DMBOT",
     "response_type": "ephemeral",
     "text": "resultText",
 	"channel": "req.body.channel_id",
 	"icon_emoji":":game_die:"
-	}"
+	";
 
   // send dice roll
   send(botPayload, function (error, status, body) {
