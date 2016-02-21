@@ -124,7 +124,7 @@ function send (payload, callback) {
   var path = process.env.INCOMING_WEBHOOK_PATH;
   var uri = 'https://hooks.slack.com/services' + path;
   var json = JSON.stringify(payload);
-  json.response_type = "ephemeral";
+  json.response_type = ephemeral;
   request({
     uri: uri,
     method: 'POST',
