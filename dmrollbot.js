@@ -132,7 +132,7 @@ function send (payload, callback) {
   request({
     uri: uri,
     method: 'POST',
-    body: JSON.stringify(payload)
+    body:payload
   }, function (error, response, body) {
     if (error) {
       return callback(error);
