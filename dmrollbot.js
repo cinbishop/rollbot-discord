@@ -96,7 +96,7 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
   botPayload.username = 'DMBOT';
-  botPayload.channel = req.body.channel_id;
+  botPayload.channel = privateSend;
   botPayload.icon_emoji = ':game_die:';
 
   // send dice roll
@@ -123,12 +123,12 @@ function roll (min, max) {
 function send (payload, callback) {
   var path = process.env.INCOMING_WEBHOOK_PATH;
   var uri = 'https://hooks.slack.com/services' + path;
-  var json = JSON.stringify(payload);
-  json["response_type"] = "ephemeral";
+ 
   request({
     uri: uri,
     method: 'POST',
-    body: json
+	response_type: 'ephemeral',
+    body: JSON.stringify(payload)
   }, function (error, response, body) {
     if (error) {
       return callback(error);
