@@ -96,7 +96,7 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
   botPayload.username = 'DMBOT';
-  botPayload.channel = req.body.channel_id;
+  botPayload.channel = privateSend;
   botPayload.icon_emoji = ':game_die:';
 
   // send dice roll
@@ -127,7 +127,6 @@ function send (payload, callback) {
   request({
     uri: uri,
     method: 'POST',
-	response_type: 'ephemeral',
     body: JSON.stringify(payload)
   }, function (error, response, body) {
     if (error) {
