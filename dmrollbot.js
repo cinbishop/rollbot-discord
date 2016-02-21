@@ -7,6 +7,7 @@ module.exports = function (req, res, next) {
   var die = 20;
   var modifier = "+";
   var modifier_value = 0;
+  var resultText = "";
   var rolls = [];
   var total = 0;
   var botPayload = {};
@@ -79,7 +80,7 @@ module.exports = function (req, res, next) {
       console.log(total)
     }
 
-    botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
+    resultText = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*' + didCrit;
   } 
   else {
@@ -92,12 +93,16 @@ module.exports = function (req, res, next) {
 	else {
 		var didCrit = ""
 	}
-    botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
+    resultText = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
                       rolls.join(' + ') + ' = *' + total + '*' + didCrit;
   }
-  botPayload.username = 'DMBOT';
-  botPayload.channel = privateSend;
-  botPayload.icon_emoji = ':game_die:';
+  botPayload = "{
+	"username": "DMBOT",
+    "response_type": "ephemeral",
+    "text": "resultText",
+	"channel": "req.body.channel_id",
+	"icon_emoji":":game_die:"
+	}"
 
   // send dice roll
   send(botPayload, function (error, status, body) {
