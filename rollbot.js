@@ -74,7 +74,7 @@ module.exports = function (req, res, next) {
 		}
 		if(weapons[4]) {
 			modifier = weapons[5];
-			modifier_value = Number(weapons[6]);
+			modifier_value = Number(weapons[6]*times);
 		}
 	}
 	else {
