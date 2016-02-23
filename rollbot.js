@@ -3,6 +3,8 @@ var request = require('request');
 module.exports = function (req, res, next) {
   // default roll is 1d20
   var matches;
+  var defaultmod;
+  var weapons;
   var times = 1;
   var die = 20;
   var modifier = "+";
@@ -23,6 +25,7 @@ module.exports = function (req, res, next) {
     // parse roll type if specified
 	defaultmod = req.body.text.match(/^$|\s*(\+|\-)(\d{1,3})$/);
     matches = req.body.text.match(/^(\d{1,3})d(\d{1,3})($|\s*(\+|\-)(\d{1,3})$)/);
+	weapons = req.body.text.match(/((\d{1,3})\s*)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)($|\s*(\+|\-)(\d{1,3})$)/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
     if (matches && matches[1] && matches[2]) {
@@ -36,11 +39,43 @@ module.exports = function (req, res, next) {
       }
 
     } 
-	else if(defaultmod) {
+	else if(defaultmod && !weapons) {
 		times = 1;
 		die = 20;
 		modifier = defaultmod[1];
 		modifier_value = Number(defaultmod[2]);
+	}
+	else if(weapons) {
+		times = 1;
+		console.log(weapons);
+		if(weapons[1] && weapons[2]) {
+			times = weapons[2];
+		}
+		else {
+			times = 1;
+		}
+		if(/club|dagger|lighthammer|sickle|dart|sling|whip/.test(weapons[3])) {
+			die = 4;
+		}
+		if(/handaxe|javelin|mace|quarterstaff|spear|shortbow|scimitar|shortsword|trident|handcrossbow|greatsword|maul/.test(weapons[3])) {
+			if(weapons[3] == "greatsword" || weapons[3] == "maul") {
+				times = times*2;
+			}
+			die = 6;
+		}
+		if(/greatclub|lightcrossbow|battleaxe|flail|longsword|morningstar|rapier|warpick|warhammer|longbow/.test(weapons[3])) {
+			die = 8;
+		}
+		if(/glaive|halberd|pike|heavycrossbow/.test(weapons[3])) {
+			die = 10;
+		}
+		if(/greataxe|lance/.test(weapons[3])) {
+			die = 12;
+		}
+		if(weapons[4]) {
+			modifier = weapons[5];
+			modifier_value = Number(weapons[6]);
+		}
 	}
 	else {
       // send error message back to user if input is bad
@@ -61,10 +96,10 @@ module.exports = function (req, res, next) {
   if (modifier_value){
 	var unmodifiedTotal = total;
 	
-	if(unmodifiedTotal === rollTotal) {
+	if(unmodifiedTotal === rollTotal && die === 20) {
 		var didCrit = randomCrit;
 	}
-	else if(unmodifiedTotal === badRoll) {
+	else if(unmodifiedTotal === badRoll && die === 20) {
 		var didCrit = randomMiss;
 	}
 	else {
@@ -85,10 +120,10 @@ module.exports = function (req, res, next) {
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*' + didCrit;
   } 
   else {
-	if(total === rollTotal) {
+	if(total === rollTotal && die === 20) {
 		var didCrit = randomCrit;
 	}
-	else if(total === badRoll) {
+	else if(total === badRoll && die === 20) {
 		var didCrit = randomMiss;
 	}
 	else {
