@@ -12,12 +12,14 @@ module.exports = function (req, res, next) {
   var rolls = [];
   var total = 0;
   var botPayload = {};
-  var critArray = [" CRIT!"," AWH YEAH BIG CRITS!"," CRITTY DITTY DO!"," MMM SEXY CRIT TIMES!"," CRITATTACK!"," M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, DOES IT COME IN HETERO?", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!"]
+  var critArray = [" CRIT!"," AWH YEAH BIG CRITS!"," CRITTY DITTY DO!"," MMM SEXY CRIT TIMES!"," CRITATTACK!"," M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!","NICE ONE, BRUVA!"]
   var missArray = [" YOU SUCK B!"," YOU JUST HIT YOURSELF!"," SLICE! THERE GOES YA PENIS!"," CRITICAL MISS, NUBCAKES!"," WIGGIDTY WAM WAM WOZZLE YA MISSED!"," BABBY'S FIRST SWORD SWING!" ," IS YOUR NAME STEVE FISHER? MAN YOU SUCK.", " LOLOLOLOLOLOL REZ INCOMING NUB", " THAT'S RARELY GOOD", " YA DONE GOOFED", " BIFFED IT", " BIFFED IT HARD", " WELL AT LEAST YOUR PARENTS STILL LOVE YOU", " THIS IS WHY WE CAN'T HAVE NICE THINGS", " I CAN'T BELIEVE YOU'VE DONE THIS", " GOOD JOB, [BLIND CELEBRITY NAME HERE]"]
   var nameArray = ["ZIMZAMTHEROLLYMAN","ROLLBOT","TRANSFORMANDROLLOUTBOT","BOLLROT","ROLLYPOLLYOLLYROLLBOT","ROLLSMAN5000","CRITOMATIC","MISSOMATIC","WAMBAMROLLERMAN", "ROLLYAL WITH CHEESEBOT", "PATCHES O'ROLLIHAN","ROLLBITCH","SNAPCRACKLEMITCHANDROLLBOT","ROLLSLAVE","BIGDADDYROLLS","ROLLROLLROLLYOURBOATBOT","ROLLANDO BLOOM","ROLLTIDE","HITOMATIC","HANDYDANDYROLLBOT","YOUR FRIENDLY NEIGHBORHOOD ROLLBOT","ROLLANDY MARSH", "'THE' ROLLHIO STATE UNIVERSITY","ROLLUMBUSBOT","ROLLGAZO THE MIGHTY ROLL GOD","DROLLPH LUNDGREN","OOO, BAROLLCUDA","ADROLLPH HITLER","RNGESUS","RANDY QUAID","ROLLO TONY BROWN TOWN","ROLLNADOBOT","ROLLNADOBOT II: STILL ROLLING","ROLLNADOBOT III: SUMMER OF ROLLNADOBOT","ROLLNADOBOT IV: ROLL OUT","ROLLNADOBOT V: EASY COME EASY ROLL","ROLLNADOBOT VI: THE FINAL ROLLDOWN","ROLLNADOBOT VII: ONE MORE FOR THE ROLL","ROLLNADOBOT VIII: THE ROLLUNION","ROLLNADOBOT IX: THE PERFECT ROLL","ROLLSY O'DONNELL","TROLLROLLOLBOT","ROLLTANA","CAROLLS SANTANA","CPT SISKROLLS","USS ENTROLLPRISEBOT","DEEP ROLLS 9","RANDOM NUMBER GENERATOR BOT","BEEPBOOPHERESYOURROLL","KING GADROLLA","MECHAGODZIROLLABOT","GODZILLROLLABOT","D-BOT", "THE GREAT ROLLBANZO","VINCENT VAN ROLLBOT","CRAPPYROLLBOT", "BARCEROLLA FC BOT","ROLLERDISCOBOT","ROLLSEPH STALIN","TEDDY ROLLSEVELT","FRANKLIN D. ROLLSEVELT","WINSTROLL CHURCHILL","BENITROLL MUSSOLINI","HIDEKI TOROLL","ROLLEAL MADRIDBOT"]
   var randomCrit = critArray[Math.floor(Math.random()*critArray.length)];
   var randomMiss = missArray[Math.floor(Math.random()*missArray.length)];
   var randomName = nameArray[Math.floor(Math.random()*nameArray.length)];
+  var didCrit = false;
+  var didMiss = false;
 
 
 
@@ -97,13 +99,15 @@ module.exports = function (req, res, next) {
 	var unmodifiedTotal = total;
 	
 	if(unmodifiedTotal === rollTotal && die === 20) {
-		var didCrit = randomCrit;
+		var message = randomCrit;
+		didCrit = true;
 	}
 	else if(unmodifiedTotal === badRoll && die === 20) {
-		var didCrit = randomMiss;
+		var message = randomMiss;
+		didMiss = true;
 	}
 	else {
-		var didCrit = ""
+		var message = ""
 	}
 	
     if (modifier == '+'){
@@ -117,24 +121,34 @@ module.exports = function (req, res, next) {
     }
 
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
-                      rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*' + didCrit;
+                      rolls.join(' + ') + ' (' + modifier + modifier_value + ') = *' + total + '*' + message;
   } 
   else {
 	if(total === rollTotal && die === 20) {
-		var didCrit = randomCrit;
+		var message = randomCrit;
+		didCrit = true;
 	}
 	else if(total === badRoll && die === 20) {
-		var didCrit = randomMiss;
+		var message = randomMiss;
+		didMiss = true;
 	}
 	else {
-		var didCrit = ""
+		var message = ""
 	}
     botPayload.text = req.body.user_name + ' rolled ' + times + 'd' + die + ':\n' +
-                      rolls.join(' + ') + ' = *' + total + '*' + didCrit;
+                      rolls.join(' + ') + ' = *' + total + '*' + message;
   }
   botPayload.username = randomName;
   botPayload.channel = req.body.channel_id;
-  botPayload.icon_emoji = ':game_die:';
+  if(didCrit) {
+  	botPayload.icon_emoji = ':bangbang:';
+  }
+  else if(didMiss) {
+  	botPayload.icon_emoji = ':poop:';
+  }
+  else {
+  	  botPayload.icon_emoji = ':game_die:';
+  }
 
   // send dice roll
   send(botPayload, function (error, status, body) {
