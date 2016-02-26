@@ -71,13 +71,18 @@ console.log(matches[0]);
         	modifier_value = Number(matches[10]);
       	}
 		if (matches[11]){
-			matches[11].split(' ').join('');
-			rollNote = "(*"+matches[11]+"*)";
+			var nospaces = matches[11].split(' ').join('');
+			if(nospaces === "help") {
+				      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <threewordmessage> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <threewordmessage> \n Use message dm for private roll');
+			}
+			else {
+			rollNote = "(*"+nospaces+"*)";
+			}
 		}
     }
 	else {
       // send error message back to user if input is bad
-      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <3wordmessage> WEAPON METHOD <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <threewordmessage>');
+				      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <threewordmessage> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <threewordmessage> \n Use message dm for private roll');
     }
   }
 
@@ -145,7 +150,11 @@ console.log(matches[0]);
   else {
   	  botPayload.icon_emoji = ':game_die:';
   }
-
+    
+  if(matches[11] === "dm" || matches[11] === " dm") {
+  	  return res.status(200).send(rolls.join(' + ') + ' = *' + total + '*' + message);
+  }	
+  
   // send dice roll
   send(botPayload, function (error, status, body) {
     if (error) {
@@ -170,7 +179,7 @@ function roll (min, max) {
 function send (payload, callback) {
   var path = process.env.INCOMING_WEBHOOK_PATH;
   var uri = 'https://hooks.slack.com/services' + path;
- 
+	
   request({
     uri: uri,
     method: 'POST',
