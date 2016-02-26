@@ -31,7 +31,7 @@ module.exports = function (req, res, next) {
 
   if (req.body.text) {
     // parse roll type if specified
-	matches = req.body.text.match(/((\d{1,3})d(\d{1,3}))?((\d{1,3})\s)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((?:\s*[a-zA-Z]+){1,3})?/);
+	matches = req.body.text.match(/((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/);
     //matches = req.body.text.match(/^(\d{1,2})d(\d{1,2})$/);
     console.log(matches);
 console.log(matches[0]);
@@ -46,12 +46,12 @@ console.log(matches[0]);
 		if(matches[4] && matches[5]) {
 			times = matches[5];
 		}
-		if(matches[6]) {
-			if(/club|dagger|lighthammer|sickle|dart|sling|whip/.test(matches[6])) {
+		if(matches[7]) {
+			if(/club|dagger|lighthammer|sickle|dart|sling|whip/.test(matches[7])) {
 				die = 4;
 			}
-			if(/handaxe|javelin|mace|quarterstaff|spear|shortbow|scimitar|shortsword|trident|handcrossbow|greatsword|maul/.test(matches[6])) {
-				if(matches[6] == "greatsword" || matches[6] == "maul") {
+			if(/handaxe|javelin|mace|quarterstaff|spear|shortbow|scimitar|shortsword|trident|handcrossbow|greatsword|maul/.test(matches[7])) {
+				if(matches[7] == "greatsword" || matches[7] == "maul") {
 					times = times*2;
 				}
 				die = 6;
@@ -59,30 +59,29 @@ console.log(matches[0]);
 			if(/greatclub|lightcrossbow|battleaxe|flail|longsword|morningstar|rapier|warpick|warhammer|longbow/.test(matches[6])) {
 				die = 8;
 			}
-			if(/glaive|halberd|pike|heavycrossbow/.test(matches[6])) {
+			if(/glaive|halberd|pike|heavycrossbow/.test(matches[7])) {
 				die = 10;
 			}
-			if(/greataxe|lance/.test(matches[6])) {
+			if(/greataxe|lance/.test(matches[7])) {
 				die = 12;
 			}
 		}
-      	if (matches[7]){
-        	modifier = matches[9];
-        	modifier_value = Number(matches[10]);
+      	if (matches[8]){
+        	modifier = matches[10];
+        	modifier_value = Number(matches[11]);
       	}
-		if (matches[11]){
-			var nospaces = matches[11].split(' ').join('');
-			if(nospaces === "help") {
-				      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <threewordmessage> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <threewordmessage> \n Use message dm for private roll');
+		if (matches[12]){
+			if(matches[14] === "help") {
+				      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message> \n Use message -dm for private roll');
 			}
 			else {
-			rollNote = "(*"+nospaces+"*)";
+			rollNote = "(*"+matches[14]+"*)";
 			}
 		}
     }
 	else {
       // send error message back to user if input is bad
-				      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <threewordmessage> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <threewordmessage> \n Use message dm for private roll');
+				      return res.status(200).send('DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message> \n Use message -dm for private roll');
     }
   }
 
@@ -151,7 +150,7 @@ console.log(matches[0]);
   	  botPayload.icon_emoji = ':game_die:';
   }
     
-  if(matches[11] === "dm" || matches[11] === " dm") {
+  if(matches[14] === "dm" || matches[11] === " dm") {
   	  return res.status(200).send(rolls.join(' + ') + ' = *' + total + '*' + message);
   }	
   
