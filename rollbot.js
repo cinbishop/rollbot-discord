@@ -150,7 +150,7 @@ console.log(matches[0]);
   	  botPayload.icon_emoji = ':game_die:';
   }
     
-  if(matches[14] === "dm" || matches[11] === " dm") {
+  if(matches[14] === "dm") {
   	  return res.status(200).send(rolls.join(' + ') + ' = *' + total + '*' + message);
   }	
   
