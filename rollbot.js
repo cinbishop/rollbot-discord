@@ -56,7 +56,7 @@ console.log(matches[0]);
 				}
 				die = 6;
 			}
-			if(/greatclub|lightcrossbow|battleaxe|flail|longsword|morningstar|rapier|warpick|warhammer|longbow/.test(matches[6])) {
+			if(/greatclub|lightcrossbow|battleaxe|flail|longsword|morningstar|rapier|warpick|warhammer|longbow/.test(matches[7])) {
 				die = 8;
 			}
 			if(/glaive|halberd|pike|heavycrossbow/.test(matches[7])) {
