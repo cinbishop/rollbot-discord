@@ -5,12 +5,19 @@
 */
 
 var Discord = require("discord.js");
+var express = require('express');
+
+var app = express();
+var port = process.env.PORT || 3000;
+
+app.listen(port, function () {
+  console.log('rollbot listening on port ' + port);
+});
 
 // Get the email and password
 var AuthDetails = require("./auth.json");
 
 var bot = new Discord.Client();
-bot.listen(process.env.PORT || 5000)
 
 //when the bot is ready
 bot.on("ready", () => {
