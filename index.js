@@ -10,6 +10,7 @@ var Discord = require("discord.js");
 var AuthDetails = require("./auth.json");
 
 var bot = new Discord.Client();
+bot.listen(process.env.PORT || 5000)
 
 //when the bot is ready
 bot.on("ready", () => {
