@@ -185,7 +185,7 @@ function roll(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function keepAwake {
+function keepAwake() {
     bot.sendMessage(bot.channels, "I'm awake!");
 }
 
