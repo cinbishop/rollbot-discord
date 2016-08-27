@@ -18,10 +18,14 @@ app.listen(port, function() {
 var AuthDetails = require("./auth.json");
 
 var bot = new Discord.Client();
+var idleTimer;
 
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
+    idleTimer = setInterval(keepAwake, 2000) {
+
+    }
 });
 
 //when the bot disconnects
@@ -174,11 +178,17 @@ bot.on("message", msg => {
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
+        clearInterval(idleTimer)
+        idleTimer = setInterval(keepAwake, 2000);
     }
 });
 
 function roll(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function keepAwake {
+    bot.sendMessage(bot.channels, "I'm awake!");
 }
 
 bot.loginWithToken(AuthDetails.token);
