@@ -188,7 +188,7 @@ function roll(min, max) {
 }
 
 function keepAwake() {
-    bot.channels.get("id",genChannel).sendMessage("I'm awake!");
+    bot.channels.get("id",genChannel).sendMessage("I'm awake!").deleteMessage();
 }
 
 bot.loginWithToken(AuthDetails.token);
