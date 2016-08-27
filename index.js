@@ -33,6 +33,7 @@ bot.on("ready", () => {
     idleTimer = setInterval(keepAwake, 1440000);
     bot.setStatus("online","/roll -help for syntax");
     bot.channels.get("id",genChannel).sendMessage("I'm back, baby");
+    bot.channels.get("id",genChannel).lastMessage.deleteMessage();
 });
 
 //when the bot disconnects
@@ -183,7 +184,7 @@ bot.on("message", msg => {
         if (didCrit) {
             bot.setStatus("online","OH DAMN!");
         } else if (didMiss) {
-            bot.setStatus("online","LOL YOU SUCK");
+            bot.setStatus("online","LOL NICE ROLL");
         }
         else {
             bot.setStatus("online","/roll -help for syntax");
