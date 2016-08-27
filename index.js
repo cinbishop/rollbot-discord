@@ -140,11 +140,11 @@ bot.on("message", msg => {
 	var unmodifiedTotal = total;
 
 	if(unmodifiedTotal === rollTotal) {
-		var message = randomCrit  + ":bomb:";
+		var message = randomCrit;
 		didCrit = true;
 	}
 	else if(unmodifiedTotal === badRoll) {
-		var message = randomMiss + ":joy:";
+		var message = randomMiss;
 		didMiss = true;
 	}
 	else {
@@ -161,7 +161,7 @@ bot.on("message", msg => {
       console.log(total)
     }
 
-    botPayload.text = msg.channel.server.detailsOf(msg.author).nick + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
+    botPayload.text = '@' + msg.channel.server.detailsOf(msg.author).nick + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = **' + total + ' ' + message + '**';
   } 
   else {
@@ -176,7 +176,7 @@ bot.on("message", msg => {
 	else {
 		var message = ""
 	}
-    botPayload.text = msg.channel.server.detailsOf(msg.author).nick + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
+    botPayload.text = '@' + msg.channel.server.detailsOf(msg.author).nick + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
                       rolls.join(' + ') + ' = **' + total + ' ' + message + '**';
   }
    if(didCrit) {
