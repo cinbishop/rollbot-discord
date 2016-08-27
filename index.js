@@ -31,7 +31,7 @@ bot.on("ready", () => {
     genChannel = bot.channels.get("name","dm_rolls").id;
     //1440000
     idleTimer = setInterval(keepAwake, 1440000);
-    bot.setStatus("online","type roll -help for rolling syntax");
+    bot.setStatus("online","/roll -help for syntax");
 });
 
 //when the bot disconnects
