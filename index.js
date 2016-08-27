@@ -20,13 +20,16 @@ var AuthDetails = require("./auth.json");
 var bot = new Discord.Client();
 var idleTimer;
 var genChannel;
+var awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS"];
+var randomAwakeMessage = awakeArray[Math.floor(Math.random() * awakeArray.length)];
+
 
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     genChannel = bot.channels.get("name","offtopic").id;
     //1440000
-    idleTimer = setInterval(keepAwake, 1440000);
+    idleTimer = setInterval(keepAwake, 5000);
 });
 
 //when the bot disconnects
@@ -181,7 +184,7 @@ bot.on("message", msg => {
         bot.deleteMessage(msg);
         clearInterval(idleTimer)
         //1440000
-        idleTimer = setInterval(keepAwake, 1440000);
+        idleTimer = setInterval(keepAwake, 5000);
     }
 });
 
@@ -190,7 +193,7 @@ function roll(min, max) {
 }
 
 function keepAwake() {
-    bot.channels.get("id",genChannel).sendMessage("I'm awake!");
+    bot.channels.get("id",genChannel).sendMessage(randomAwakeMessage);
 }
 
 bot.loginWithToken(AuthDetails.token);
