@@ -160,8 +160,8 @@ bot.on("message", msg => {
       total = total - modifier_value;
       console.log(total)
     }
-
-    botPayload.text = msg.channel.server.detailsOf(msg.author).nick.mention + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
+	var nickname = msg.channel.server.detailsOf(msg.author).nick;
+    botPayload.text = nickname.mention() + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
                       rolls.join(' + ') + ' (' + modifier + modifier_value + ') = **' + total + ' ' + message + '**';
   } 
   else {
@@ -176,7 +176,8 @@ bot.on("message", msg => {
 	else {
 		var message = ""
 	}
-    botPayload.text = msg.channel.server.detailsOf(msg.author).nick.mention + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
+	var nickname = msg.channel.server.detailsOf(msg.author).nick;
+    botPayload.text = nickname.mention() + ' rolled ' + times + 'd' + die + rollNote + ':\n' +
                       rolls.join(' + ') + ' = **' + total + ' ' + message + '**';
   }
    if(didCrit) {
