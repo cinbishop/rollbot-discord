@@ -29,10 +29,8 @@ var randomAwakeMessage;
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     genChannel = bot.channels.get("name","offtopic").id;
-    awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS"];
-    randomAwakeMessage = awakeArray[Math.floor(Math.random() * awakeArray.length)];
     //1440000
-    idleTimer = setInterval(keepAwake, 1440000);
+    idleTimer = setInterval(keepAwake, 5000);
 });
 
 //when the bot disconnects
@@ -187,7 +185,7 @@ bot.on("message", msg => {
         bot.deleteMessage(msg);
         clearInterval(idleTimer)
         //1440000
-        idleTimer = setInterval(keepAwake, 1440000);
+        idleTimer = setInterval(keepAwake, 5000);
     }
 });
 
@@ -196,6 +194,8 @@ function roll(min, max) {
 }
 
 function keepAwake() {
+    awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS"];
+    randomAwakeMessage = awakeArray[Math.floor(Math.random() * awakeArray.length)];
     bot.channels.get("id",genChannel).sendMessage(randomAwakeMessage);
 }
 
