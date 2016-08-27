@@ -19,6 +19,7 @@ var AuthDetails = require("./auth.json");
 
 var bot = new Discord.Client();
 var idleTimer;
+var genChannel = bot.channels.get("name","offtopic").id;
 
 //when the bot is ready
 bot.on("ready", () => {
@@ -186,7 +187,7 @@ function roll(min, max) {
 }
 
 function keepAwake() {
-    bot.sendMessage(bot.channels, "I'm awake!");
+    bot.sendMessage(genChannel, "I'm awake!");
 }
 
 bot.loginWithToken(AuthDetails.token);
