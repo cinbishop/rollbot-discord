@@ -79,14 +79,14 @@ bot.on("message", msg => {
 
     if (msg.content.startsWith(prefix) && msg.content.match(/\/roll$/)) {
         matches = msg.content.match(/\/roll$/);
-    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll -help/)) {
-        if(msg.content.match(/\/roll -help$/)) {
+    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll help/)) {
+        if(msg.content.match(/\/roll help$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
 
-            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2d6 +3 -message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2 longsword +3 -message*\n\n/type 'roll -help weapons' for weapons list");
+            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2d6 +3 -message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2 longsword +3 -message*\n\ntype '/roll help weapons' for weapons list");
         }
-        else if(msg.content.match(/\/roll -help weapons$/)) {
+        else if(msg.content.match(/\/roll help weapons$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
             bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
