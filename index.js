@@ -25,7 +25,8 @@ var genChannel;
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     genChannel = bot.channels.get("name","offtopic").id;
-    idleTimer = setInterval(keepAwake, 1440000);
+    //1440000
+    idleTimer = setInterval(keepAwake, 4000);
 });
 
 //when the bot disconnects
@@ -179,7 +180,8 @@ bot.on("message", msg => {
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
         clearInterval(idleTimer)
-        idleTimer = setInterval(keepAwake, 1440000);
+        //1440000
+        idleTimer = setInterval(keepAwake, 4000);
     }
 });
 
@@ -189,6 +191,9 @@ function roll(min, max) {
 
 function keepAwake() {
     bot.channels.get("id",genChannel).sendMessage("I'm awake!");
+    bot.on("message" , msg => {
+        bot.deleteMessage(msg);
+    });
 }
 
 bot.loginWithToken(AuthDetails.token);
