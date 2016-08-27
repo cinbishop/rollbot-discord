@@ -23,9 +23,7 @@ var idleTimer;
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
-    idleTimer = setInterval(keepAwake, 2000) {
-
-    }
+    idleTimer = setInterval(keepAwake, 2000);
 });
 
 //when the bot disconnects
