@@ -31,7 +31,7 @@ bot.on("ready", () => {
     genChannel = bot.channels.get("name","rollbot_house").id;
     //1440000
     idleTimer = setInterval(keepAwake, 1440000);
-    bot.setStatus("online","/roll -help for syntax");
+    bot.setStatus("online","/roll help for syntax");
     bot.channels.get("id",genChannel).sendMessage("I'm back, baby");
 });
 
