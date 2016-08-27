@@ -84,7 +84,7 @@ bot.on("message", msg => {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
 
-            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2d6 +3 -message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2 longsword +3 -message*");
+            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2d6 +3 -message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2 longsword +3 -message*\n\n/type 'roll -help weapons' for weapons list");
         }
         else if(msg.content.match(/\/roll -help weapons$/)) {
             var dmChannel = msg.author.id;
