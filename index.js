@@ -79,11 +79,18 @@ bot.on("message", msg => {
 
     if (msg.content.startsWith(prefix) && msg.content.match(/\/roll$/)) {
         matches = msg.content.match(/\/roll$/);
-    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll -help$/)) {
-        var dmChannel = msg.author.id;
-        bot.reply(msg, "DM Sent");
+    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll -help/)) {
+        if(msg.content.match(/\/roll -help$/)) {
+            var dmChannel = msg.author.id;
+            bot.reply(msg, "DM Sent");
 
-        bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2d6 +3 -message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2 longsword +3 -message*");
+            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2d6 +3 -message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Example: 2 longsword +3 -message*");
+        }
+        else if(msg.content.match(/\/roll -help weapons$/)) {
+            var dmChannel = msg.author.id;
+            bot.reply(msg, "DM Sent");
+            bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
+        }
     }
     else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/)) {
         matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/);
