@@ -120,7 +120,10 @@ bot.on("message", msg => {
             }
             if (matches[12]) {
                 if (matches[14] === "help") {
-                    bot.sendMessage(msg, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message> \n Use message -dm for private roll");
+                    var dmChannel = msg.author.id;
+                    bot.reply(msg, "DM Sent");
+
+                    bot.sendMessage(dmChannel, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message> \n Use message -dm for private roll");
                 } else {
                     rollNote = "(**" + matches[14] + "**)";
                 }
