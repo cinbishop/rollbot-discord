@@ -1,10 +1,6 @@
-/*
-	This bot is a ping pong bot, and every time a message
-	beginning with "ping" is sent, it will reply with
-	"pong!".
-*/
+var http = require('http');
 var Discord = require("discord.js");
-var express = require('express');
+var express = require("express");
 
 var app = express();
 var port = process.env.PORT || 3000;
