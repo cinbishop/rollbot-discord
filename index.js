@@ -83,7 +83,7 @@ bot.on("message", msg => {
         var dmChannel = msg.author.id;
         bot.reply(msg, "DM Sent");
 
-        bot.sendMessage(dmChannel, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message>");
+        bot.sendMessage(dmChannel, "**DICE METHOD:** \n <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message> \n *2d6 +3 -message* \n WEAPON METHOD: \n <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message> \n *2 longsword +3 -message*");
     }
     else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/)) {
         matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/);
