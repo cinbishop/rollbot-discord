@@ -19,11 +19,12 @@ var AuthDetails = require("./auth.json");
 
 var bot = new Discord.Client();
 var idleTimer;
-var genChannel = bot.channels.get("name","general").id;
+var genChannel;
 
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
+    genChannel = bot.channels.get("name","offtopic").id;
     idleTimer = setInterval(keepAwake, 2000);
 });
 
