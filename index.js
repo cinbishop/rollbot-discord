@@ -123,7 +123,7 @@ bot.on("message", msg => {
                     var dmChannel = msg.author.id;
                     bot.reply(msg, "DM Sent");
 
-                    bot.sendMessage(dmChannel, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message> \n Use message -dm for private roll");
+                    bot.sendMessage(dmChannel, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message>");
                 } else {
                     rollNote = "(**" + matches[14] + "**)";
                 }
