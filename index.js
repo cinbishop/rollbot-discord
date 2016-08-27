@@ -190,8 +190,10 @@ bot.on("message", msg => {
                 rolls.join(' + ') + ' = **' + total + ' ' + message + '**';
         }
         if (didCrit) {
+            bot.setStatus("online","GOOD!");
 
         } else if (didMiss) {
+                        bot.setStatus("online","BAD!");
 
         }
         else {
