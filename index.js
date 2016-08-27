@@ -79,7 +79,7 @@ bot.on("message", msg => {
 
     if (msg.content.startsWith(prefix) && msg.content.match(/\/roll$/)) {
         matches = msg.content.match(/\/roll$/);
-    } else if (msg.content.startsWith(prefix) && msg.content.match(\/roll -help$/)) {
+    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll -help$/)) {
         var dmChannel = msg.author.id;
         bot.reply(msg, "DM Sent");
 
