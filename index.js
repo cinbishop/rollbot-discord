@@ -203,7 +203,7 @@ function roll(min, max) {
 }
 
 function keepAwake() {
-    awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS"];
+    awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS","Are you using RPBot?","Rolling (rolling) Rolling (rolling) Rolling down the river","Baby that's just how I roll"];
     randomAwakeMessage = awakeArray[Math.floor(Math.random() * awakeArray.length)];
     bot.channels.get("id",genChannel).sendMessage(randomAwakeMessage);
 }
