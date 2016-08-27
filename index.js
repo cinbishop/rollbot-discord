@@ -181,14 +181,7 @@ bot.on("message", msg => {
             botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' +
                 rolls.join(' + ') + ' = **' + total + ' ' + message + '**';
         }
-        if (didCrit) {
-            bot.setStatus("online","OH DAMN!");
-        } else if (didMiss) {
-            bot.setStatus("online","LOL NICE ROLL");
-        }
-        else {
-            bot.setStatus("online","/roll -help for syntax");
-        }
+        if (didCrit) {} else if (didMiss) {}
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
