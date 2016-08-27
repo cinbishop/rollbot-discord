@@ -30,7 +30,7 @@ bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     genChannel = bot.channels.get("name","rollbot_house").id;
     //1440000
-    idleTimer = setInterval(keepAwake, 1440000);
+    idleTimer = setInterval(keepAwake, 900000);
     bot.setStatus("online","/roll help for syntax");
     bot.channels.get("id",genChannel).sendMessage("I'm back, baby :joy:");
 });
@@ -203,7 +203,7 @@ bot.on("message", msg => {
         bot.deleteMessage(msg);
         clearInterval(idleTimer)
         //1440000
-        idleTimer = setInterval(keepAwake, 1440000);
+        idleTimer = setInterval(keepAwake, 900000);
     }
 });
 
