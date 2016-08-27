@@ -140,11 +140,11 @@ bot.on("message", msg => {
 	var unmodifiedTotal = total;
 
 	if(unmodifiedTotal === rollTotal) {
-		var message = randomCrit;
+		var message = randomCrit  + ':bomb:';
 		didCrit = true;
 	}
 	else if(unmodifiedTotal === badRoll) {
-		var message = randomMiss;
+		var message = randomMiss + ':laughing:';
 		didMiss = true;
 	}
 	else {
