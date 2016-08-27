@@ -28,9 +28,9 @@ var randomAwakeMessage;
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
-    genChannel = bot.channels.get("name","offtopic").id;
+    genChannel = bot.channels.get("name","dm_rolls").id;
     //1440000
-    idleTimer = setInterval(keepAwake, 1440000);
+    idleTimer = setInterval(keepAwake, 5000);
 });
 
 //when the bot disconnects
@@ -185,7 +185,7 @@ bot.on("message", msg => {
         bot.deleteMessage(msg);
         clearInterval(idleTimer)
         //1440000
-        idleTimer = setInterval(keepAwake, 1440000);
+        idleTimer = setInterval(keepAwake, 5000);
     }
 });
 
