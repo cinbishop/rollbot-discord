@@ -33,7 +33,6 @@ bot.on("ready", () => {
     idleTimer = setInterval(keepAwake, 1440000);
     bot.setStatus("online","/roll -help for syntax");
     bot.channels.get("id",genChannel).sendMessage("I'm back, baby");
-    bot.channels.get("id",genChannel).lastMessage.deleteMessage();
 });
 
 //when the bot disconnects
