@@ -185,6 +185,9 @@ bot.on("message", msg => {
         } else if (didMiss) {
             bot.setStatus("online","LOL YOU SUCK");
         }
+        else {
+            bot.setStatus("online","/roll -help for syntax");
+        }
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
