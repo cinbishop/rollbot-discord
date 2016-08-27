@@ -28,10 +28,11 @@ var randomAwakeMessage;
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
-    genChannel = bot.channels.get("name","dm_rolls").id;
+    genChannel = bot.channels.get("name","rollbot_house").id;
     //1440000
     idleTimer = setInterval(keepAwake, 1440000);
     bot.setStatus("online","/roll -help for syntax");
+    bot.channels.get("id",genChannel).sendMessage("I'm back, baby");
 });
 
 //when the bot disconnects
@@ -179,7 +180,11 @@ bot.on("message", msg => {
             botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' +
                 rolls.join(' + ') + ' = **' + total + ' ' + message + '**';
         }
-        if (didCrit) {} else if (didMiss) {}
+        if (didCrit) {
+            bot.setStatus("online","OH DAMN!");
+        } else if (didMiss) {
+            bot.setStatus("online","LOL YOU SUCK");
+        }
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
