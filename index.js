@@ -79,7 +79,13 @@ bot.on("message", msg => {
 
     if (msg.content.startsWith(prefix) && msg.content.match(/\/roll$/)) {
         matches = msg.content.match(/\/roll$/);
-    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/)) {
+    } else if (msg.content.startsWith(prefix) && msg.content.match(\/roll -help$/)) {
+        var dmChannel = msg.author.id;
+        bot.reply(msg, "DM Sent");
+
+        bot.sendMessage(dmChannel, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message>");
+    }
+    else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/)) {
         matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)(\d{1,3}))?((\s)?\-(.*$))?/);
         console.log(matches);
         console.log(matches[0]);
@@ -119,14 +125,7 @@ bot.on("message", msg => {
                 modifier_value = Number(matches[11]);
             }
             if (matches[12]) {
-                if (matches[14] === "help") {
-                    var dmChannel = msg.author.id;
-                    bot.reply(msg, "DM Sent");
-
-                    bot.sendMessage(dmChannel, "DICE METHOD: <number>d<sides> AND/OR <+/-modifer> AND/OR <-message> \n WEAPON METHOD: <numberofweaponsifmorethanone> <weaponname> AND/OR <+/-modifer> AND/OR <-message>");
-                } else {
-                    rollNote = "(**" + matches[14] + "**)";
-                }
+                rollNote = "(**" + matches[14] + "**)";
             }
         }
 
