@@ -91,16 +91,17 @@ bot.on("message", msg => {
         if(msg.content.match(/\/roll help$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
-
-            bot.sendMessage(dmChannel, "**PREFIX**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n\n**DC CHECKS**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:*\n1d20 > 15\n1d20 < 10\n+5 > 15\n+ 7 <12\n\ntype '/roll help weapons' for weapons list");
+            bot.deleteMessage(msg);
+            bot.sendMessage(dmChannel, "**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:*\n1d20 > 15\n1d20 < 10\n+5 > 15\n+ 7 <12\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:*\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics\n\ntype '/roll help weapons' for weapons list");
         }
         else if(msg.content.match(/\/roll help weapons$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
+            bot.deleteMessage(msg);
             bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
         }
     }
-    else if (hasPrefix && msg.content.match(/^\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
+    else if (hasPrefix && msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
         advMatches = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
         console.log(advMatches);
         var advOrDis = advMatches[2];
