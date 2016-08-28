@@ -85,12 +85,13 @@ bot.on("message", msg => {
 
     if (msg.content.startsWith(prefix) && msg.content.match(/\/roll$/)) {
         matches = msg.content.match(/\/roll$/);
-    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll help/)) {
+    } 
+    else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll help/)) {
         if(msg.content.match(/\/roll help$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
 
-            bot.sendMessage(dmChannel, "**PREFIX**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n**DC CHECKS**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:*\n1d20 > 15\n1d20 < 10\n+5 > 15\n+ 7 <12\n\ntype '/roll help weapons' for weapons list");
+            bot.sendMessage(dmChannel, "**PREFIX**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n\n**DC CHECKS**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:*\n1d20 > 15\n1d20 < 10\n+5 > 15\n+ 7 <12\n\ntype '/roll help weapons' for weapons list");
         }
         else if(msg.content.match(/\/roll help weapons$/)) {
             var dmChannel = msg.author.id;
