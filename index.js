@@ -126,7 +126,7 @@ bot.on("message", msg => {
             isDCCheck = true;
         }
         if(advMatches[11]) {
-            advMatchesRollNote =  "(**" + advMatches[13] + "**)";
+            advMatchesRollNote =  " (**" + advMatches[13] + "**)";
         }
         if(advOrDis == "adv") {
             advOrDisText = " *advantage*";
@@ -256,7 +256,7 @@ bot.on("message", msg => {
                 }
             }
         }
-        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advMatchesRollNote + ':\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dcPassFailMessage + rollbotTaunt + '**';
+        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advMatchesRollNote + '\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dcPassFailMessage + rollbotTaunt + '**';
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
