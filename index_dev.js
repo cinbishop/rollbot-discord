@@ -126,22 +126,12 @@ bot.on("message", msg => {
             isDCCheck = true;
         }
         if(advMatches[11]) {
-            advMatchesRollNote =  "(**" + advMatches[13] + "**)";
+            advMatchesRollNote =  " (**" + advMatches[13] + "**)";
         }
         if(advOrDis == "adv") {
             advOrDisText = " *advantage*";
             if (advModifierValue) {
                 var unmodifiedTotal = 20;
-
-                if ((rollA == 20) || (rollB == 20))  {
-                    rollbotTaunt = randomCrit;
-                    didCrit = true;
-                } else if ((rollA == 1) ||(rollB == 1)) {
-                    rollbotTaunt = randomMiss;
-                    didMiss = true;
-                } else {
-                    rollbotTaunt = ""
-                }
                 if (advModifier == '+') {
                     if(rollA>rollB) {
                         betterRoll = rollA;
@@ -161,18 +151,18 @@ bot.on("message", msg => {
                         betterRollModTotal = rollB - advModifierValue;
                     }
                 }
-                modifierWrapper = ' (' + advModifier + advModifierValue + ')';
-            }
-            else {
-                if ((rollA == 20) || (rollB == 20))  {
+                if (betterRoll == 20)  {
                     rollbotTaunt = randomCrit;
                     didCrit = true;
-                } else if ((rollA == 1) || (rollB == 1)) {
+                } else if (betterRoll == 1) {
                     rollbotTaunt = randomMiss;
                     didMiss = true;
                 } else {
                     rollbotTaunt = ""
                 }
+                modifierWrapper = ' (' + advModifier + advModifierValue + ')';
+            }
+            else {
                 if(rollA>rollB) {
                     betterRoll = rollA;
                     betterRollModTotal = rollA;
@@ -180,6 +170,15 @@ bot.on("message", msg => {
                 else {
                     betterRoll = rollB;
                     betterRollModTotal = rollB;
+                }
+                if (betterRoll == 20)  {
+                    rollbotTaunt = randomCrit;
+                    didCrit = true;
+                } else if (betterRoll == 1) {
+                    rollbotTaunt = randomMiss;
+                    didMiss = true;
+                } else {
+                    rollbotTaunt = ""
                 }
             }
         }
@@ -188,15 +187,6 @@ bot.on("message", msg => {
             if (advModifierValue) {
                 var unmodifiedTotal = 20;
 
-                if ((rollA == 20) || (rollB == 20))  {
-                    rollbotTaunt = randomCrit;
-                    didCrit = true;
-                } else if ((rollA == 1) || (rollB == 1)) {
-                    rollbotTaunt = randomMiss;
-                    didMiss = true;
-                } else {
-                    rollbotTaunt = ""
-                }
                 if (advModifier == '+') {
                     if(rollA>rollB) {
                         betterRoll = rollB;
@@ -216,18 +206,18 @@ bot.on("message", msg => {
                         betterRollModTotal = rollA - advModifierValue;
                     }
                 }
-                modifierWrapper = ' (' + advModifier + advModifierValue + ')';
-            }
-            else {
-                if ((rollA == 20) || (rollB == 20))  {
+                if (betterRoll == 20)  {
                     rollbotTaunt = randomCrit;
                     didCrit = true;
-                } else if ((rollA == 1) || (rollB == 1)) {
+                } else if (betterRoll == 1) {
                     rollbotTaunt = randomMiss;
                     didMiss = true;
                 } else {
                     rollbotTaunt = ""
                 }
+                modifierWrapper = ' (' + advModifier + advModifierValue + ')';
+            }
+            else {
                 if(rollA>rollB) {
                     betterRoll = rollB;
                     betterRollModTotal = rollB;
@@ -235,6 +225,15 @@ bot.on("message", msg => {
                 else {
                     betterRoll = rollA;
                     betterRollModTotal = rollA;
+                }
+                if (betterRoll == 20)  {
+                    rollbotTaunt = randomCrit;
+                    didCrit = true;
+                } else if (betterRoll == 1) {
+                    rollbotTaunt = randomMiss;
+                    didMiss = true;
+                } else {
+                    rollbotTaunt = ""
                 }
             }
         }
@@ -256,7 +255,7 @@ bot.on("message", msg => {
                 }
             }
         }
-        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advMatchesRollNote + ':\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dcPassFailMessage + rollbotTaunt + '**';
+        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advMatchesRollNote + '\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dcPassFailMessage + rollbotTaunt + '**';
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
