@@ -185,7 +185,7 @@ bot.on("message", msg => {
                 console.log(total)
             }
 
-            modifierWrapper = ' (' + modifier + modifier_value + ') ';
+            modifierWrapper = ' (' + modifier + modifier_value + ')';
         } else {
             if (total === rollTotal) {
                 rollbotTaunt = randomCrit;
@@ -215,7 +215,7 @@ bot.on("message", msg => {
                 }
             }
         }
-        botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' + rolls.join(' + ') + modifierWrapper + '= ** ' + total + dcPassFailMessage + rollbotTaunt + '**';
+        botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' + rolls.join(' + ') + modifierWrapper + ' = ** ' + total + dcPassFailMessage + rollbotTaunt + '**';
         if (didCrit) {
 
         } else if (didMiss) {
