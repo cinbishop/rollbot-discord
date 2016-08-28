@@ -48,12 +48,18 @@ bot.on("disconnected", () => {
 bot.on("message", msg => {
 
     var matches = "";
+    var isDCCheck = false;
     var weapons;
     var rollNote = "";
     var times = 1;
     var die = 20;
     var modifier = "+";
+    var greaterOrLess = "";
+    var modifierWrapper = "";
+    var rollbotTaunt = "";
     var modifier_value = 0;
+    var dc_value = 0;
+    var dcPassFailMessage = "";
     var rolls = [];
     var total = 0;
     var botPayload = {};
@@ -84,7 +90,7 @@ bot.on("message", msg => {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
 
-            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1 2 longsword + 3 - message*\n2 greatsword -message\n\ntype '/roll help weapons' for weapons list");
+            bot.sendMessage(dmChannel, "**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n\ntype '/roll help weapons' for weapons list");
         }
         else if(msg.content.match(/\/roll help weapons$/)) {
             var dmChannel = msg.author.id;
@@ -92,8 +98,8 @@ bot.on("message", msg => {
             bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
         }
     }
-    else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
-        matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
+        matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
         console.log(matches);
         console.log(matches[0]);
         if (matches) {
@@ -132,7 +138,12 @@ bot.on("message", msg => {
                 modifier_value = Number(matches[11]);
             }
             if (matches[12]) {
-                rollNote = "(**" + matches[14] + "**)";
+                greaterOrLess = matches[14];
+                dc_value = Number(matches[15]);
+                isDCCheck = true;
+            }
+            if (matches[16]) {
+                rollNote = "(**" + matches[18] + "**)";
             }
         }
 
@@ -157,13 +168,13 @@ bot.on("message", msg => {
             var unmodifiedTotal = total;
 
             if (unmodifiedTotal === rollTotal) {
-                var message = randomCrit;
+                rollbotTaunt = randomCrit;
                 didCrit = true;
             } else if (unmodifiedTotal === badRoll) {
-                var message = randomMiss;
+                rollbotTaunt = randomMiss;
                 didMiss = true;
             } else {
-                var message = ""
+                rollbotTaunt = ""
             }
 
             if (modifier == '+') {
@@ -173,22 +184,38 @@ bot.on("message", msg => {
                 total = total - modifier_value;
                 console.log(total)
             }
-            //msg.channel.server.detailsOf(msg.author).nick
-            botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' +
-                rolls.join(' + ') + ' (' + modifier + modifier_value + ') = **' + total + ' ' + message + '**';
+
+            modifierWrapper = ' (' + modifier + modifier_value + ') ';
         } else {
             if (total === rollTotal) {
-                var message = randomCrit;
+                rollbotTaunt = randomCrit;
                 didCrit = true;
             } else if (total === badRoll) {
-                var message = randomMiss;
+                rollbotTaunt = randomMiss;
                 didMiss = true;
             } else {
-                var message = ""
+                rollbotTaunt = ""
             }
-            botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' +
-                rolls.join(' + ') + ' = **' + total + ' ' + message + '**';
         }
+        if(isDCCheck) {
+            if(greaterOrLess == ">") {
+                if(total > dc_value) {
+                    dcPassFailMessage = ' > ' + dc_value + ' PASS! '; 
+                }
+                else {
+                    dcPassFailMessage = ' < ' + dc_value  + ' FAIL! ';
+                }
+            }
+            else if(greaterOrLess == "<") {
+                if(total < dc_value) {
+                    dcPassFailMessage = ' < ' + dc_value + ' PASS! ';
+                }
+                else {
+                    dcPassFailMessage = ' > ' + dc_value + ' FAIL! ';
+                }
+            }
+        }
+        botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' + rolls.join(' + ') + modifierWrapper + '= ** ' + total + dcPassFailMessage + rollbotTaunt + '**';
         if (didCrit) {
 
         } else if (didMiss) {
