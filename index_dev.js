@@ -83,7 +83,8 @@ bot.on("message", msg => {
 
     var hasPrefix = msg.content.startsWith(prefix);
     var advRegex = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
-    var rollRegex = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    var rollRegex = msg.content.match(/\/roll(\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+
 
     if (!hasPrefix) return;
 
@@ -269,6 +270,7 @@ bot.on("message", msg => {
         idleTimer = setInterval(keepAwake, 900000);
     }
     else if (hasPrefix && rollRegex) {
+        console.log("rollworks");
         matches = rollRegex;
         console.log(matches);
         console.log(matches[0]);
@@ -280,48 +282,19 @@ bot.on("message", msg => {
             if (matches[3]) {
                 die = matches[3];
             }
-            if (matches[4] && matches[5]) {
-                times = matches[5];
-            }
-            if (matches[7]) {
-                if (/club|dagger|lighthammer|sickle|dart|sling|whip/.test(matches[7])) {
-                    die = 4;
-                }
-                if (/handaxe|javelin|mace|quarterstaff|spear|shortbow|scimitar|shortsword|trident|handcrossbow|greatsword|maul/.test(matches[7])) {
-                    if (matches[7] == "greatsword" || matches[7] == "maul") {
-                        times = times * 2;
-                    }
-                    die = 6;
-                }
-                if (/greatclub|lightcrossbow|battleaxe|flail|longsword|morningstar|rapier|warpick|warhammer|longbow/.test(matches[7])) {
-                    die = 8;
-                }
-                if (/glaive|halberd|pike|heavycrossbow/.test(matches[7])) {
-                    die = 10;
-                }
-                if (/greataxe|lance/.test(matches[7])) {
-                    die = 12;
-                }
+            if (matches[4]) {
+                modifier = matches[6];
+                modifier_value = Number(matches[7]);
             }
             if (matches[8]) {
-                modifier = matches[10];
-                modifier_value = Number(matches[11]);
-            }
-            if (matches[12]) {
-                greaterOrLess = matches[14];
-                dc_value = Number(matches[15]);
+                greaterOrLess = matches[10];
+                dc_value = Number(matches[11]);
                 isDCCheck = true;
             }
-            if (matches[16]) {
-                rollNote = "(**" + matches[18] + "**)";
+            if (matches[12]) {
+                rollNote = "(**" + matches[14] + "**)";
             }
         }
-
-        //send a message to the channel the ping message was sent in.
-        //bot.sendMessage(msg, "pong!");
-
-        //alert the console
-        //console.log("pong-ed " + msg.author.username);
     }
 
     if (matches) {
