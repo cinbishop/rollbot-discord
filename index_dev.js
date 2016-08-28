@@ -129,7 +129,7 @@ bot.on("message", msg => {
             advMatchesRollNote =  "(**" + advMatches[13] + "**)";
         }
         if(advOrDis == "adv") {
-            advOrDisText = " advantage ";
+            advOrDisText = " **advantage**";
             if (advModifierValue) {
                 var unmodifiedTotal = 20;
 
@@ -184,7 +184,7 @@ bot.on("message", msg => {
             }
         }
         if(advOrDis == "dis") {
-            advOrDisText = " disadvantage ";
+            advOrDisText = " **disadvantage**";
             if (advModifierValue) {
                 var unmodifiedTotal = 20;
 
