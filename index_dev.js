@@ -48,6 +48,7 @@ bot.on("disconnected", () => {
 bot.on("message", msg => {
 
     var matches = "";
+    var advMatches = "";
     var isDCCheck = false;
     var weapons;
     var rollNote = "";
@@ -79,18 +80,19 @@ bot.on("message", msg => {
     var didMiss = false;
 
     var prefix = "/";
+    var hasPrefix = msg.content.startsWith(prefix);
 
-    if (!msg.content.startsWith(prefix)) return;
+    if (!hasPrefix) return;
 
-
-    if (msg.content.startsWith(prefix) && msg.content.match(/\/roll$/)) {
+    if (hasPrefix && msg.content.match(/\/roll$/)) {
         matches = msg.content.match(/\/roll$/);
-    } else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll help/)) {
+    } 
+    else if (hasPrefix && msg.content.match(/\/roll help/)) {
         if(msg.content.match(/\/roll help$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
 
-            bot.sendMessage(dmChannel, "**PREFIX**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n**DC CHECKS**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:*\n1d20 > 15\n1d20 < 10\n+5 > 15\n+ 7 <12\n\ntype '/roll help weapons' for weapons list");
+            bot.sendMessage(dmChannel, "**PREFIX**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message*\n1d10 -message\n3d6+1-message\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message*\n2 greatsword -message\n3dagger+3-message\n\n**DC CHECKS**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:*\n1d20 > 15\n1d20 < 10\n+5 > 15\n+ 7 <12\n\ntype '/roll help weapons' for weapons list");
         }
         else if(msg.content.match(/\/roll help weapons$/)) {
             var dmChannel = msg.author.id;
@@ -98,7 +100,172 @@ bot.on("message", msg => {
             bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
         }
     }
-    else if (msg.content.startsWith(prefix) && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
+    else if (hasPrefix && msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
+        advMatches = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+        console.log(advMatches);
+        var advOrDis = advMatches[2];
+        var advOrDisText = "";
+        var advModifier;
+        var advModifierValue = 0;
+        var advGreaterLesser;
+        var advDCValue;
+        var betterRoll;
+        var betterRollModTotal;
+        var advMatchesRollNote = "";
+        var rollA = roll(1,die);
+        var rollB = roll(1,die);
+        console.log(rollA);
+        console.log(rollB);
+        if(advMatches[3]) {
+            advModifier = advMatches[5];
+            advModifierValue = Number(advMatches[6]);
+        }
+        if(advMatches[7]) {
+            advGreaterLesser = advMatches[9];
+            advDCValue = advMatches[10];
+            isDCCheck = true;
+        }
+        if(advMatches[11]) {
+            advMatchesRollNote =  "(**" + advMatches[13] + "**)";
+        }
+        if(advOrDis == "adv") {
+            advOrDisText = " advantage ";
+            if (advModifierValue) {
+                var unmodifiedTotal = 20;
+
+                if ((rollA == 20) || (rollB == 20))  {
+                    rollbotTaunt = randomCrit;
+                    didCrit = true;
+                } else if ((rollA == 1) ||(rollB == 1)) {
+                    rollbotTaunt = randomMiss;
+                    didMiss = true;
+                } else {
+                    rollbotTaunt = ""
+                }
+                if (advModifier == '+') {
+                    if(rollA>rollB) {
+                        betterRoll = rollA;
+                        betterRollModTotal = rollA + advModifierValue;
+                    }
+                    else {
+                        betterRoll = rollB;
+                        betterRollModTotal = rollB + advModifierValue;
+                    }
+                } else if (advModifier == '-') {
+                    if(rollA>rollB) {
+                        betterRoll = rollA;
+                        betterRollModTotal = rollA - advModifierValue;
+                    }
+                    else {
+                        betterRoll = rollB;
+                        betterRollModTotal = rollB - advModifierValue;
+                    }
+                }
+                modifierWrapper = ' (' + advModifier + advModifierValue + ')';
+            }
+            else {
+                if ((rollA == 20) || (rollB == 20))  {
+                    rollbotTaunt = randomCrit;
+                    didCrit = true;
+                } else if ((rollA == 1) || (rollB == 1)) {
+                    rollbotTaunt = randomMiss;
+                    didMiss = true;
+                } else {
+                    rollbotTaunt = ""
+                }
+                if(rollA>rollB) {
+                    betterRoll = rollA;
+                    betterRollModTotal = rollA;
+                }
+                else {
+                    betterRoll = rollB;
+                    betterRollModTotal = rollB;
+                }
+            }
+        }
+        if(advOrDis == "dis") {
+            advOrDisText = " disadvantage ";
+            if (advModifierValue) {
+                var unmodifiedTotal = 20;
+
+                if ((rollA == 20) || (rollB == 20))  {
+                    rollbotTaunt = randomCrit;
+                    didCrit = true;
+                } else if ((rollA == 1) || (rollB == 1)) {
+                    rollbotTaunt = randomMiss;
+                    didMiss = true;
+                } else {
+                    rollbotTaunt = ""
+                }
+                if (advModifier == '+') {
+                    if(rollA>rollB) {
+                        betterRoll = rollB;
+                        betterRollModTotal = rollB + advModifierValue;
+                    }
+                    else {
+                        betterRoll = rollA;
+                        betterRollModTotal = rollA + advModifierValue;
+                    }
+                } else if (advModifier == '-') {
+                    if(rollA>rollB) {
+                        betterRoll = rollB;
+                        betterRollModTotal = rollB - advModifierValue;
+                    }
+                    else {
+                        betterRoll = rollA;
+                        betterRollModTotal = rollA - advModifierValue;
+                    }
+                }
+                modifierWrapper = ' (' + advModifier + advModifierValue + ')';
+            }
+            else {
+                if ((rollA == 20) || (rollB == 20))  {
+                    rollbotTaunt = randomCrit;
+                    didCrit = true;
+                } else if ((rollA == 1) || (rollB == 1)) {
+                    rollbotTaunt = randomMiss;
+                    didMiss = true;
+                } else {
+                    rollbotTaunt = ""
+                }
+                if(rollA>rollB) {
+                    betterRoll = rollB;
+                    betterRollModTotal = rollB;
+                }
+                else {
+                    betterRoll = rollA;
+                    betterRollModTotal = rollA;
+                }
+            }
+        }
+        if(isDCCheck) {
+            if(advGreaterLesser == ">") {
+                if(betterRollModTotal > advDCValue) {
+                    dcPassFailMessage = ' > ' + advDCValue + ' PASS! '; 
+                }
+                else {
+                    dcPassFailMessage = ' < ' + advDCValue + ' FAIL! ';
+                }
+            }
+            else if(advGreaterLesser == "<") {
+                if(betterRollModTotal < advDCValue) {
+                    dcPassFailMessage = ' < ' + advDCValue + ' PASS! ';
+                }
+                else {
+                    dcPassFailMessage = ' > ' + advDCValue + ' FAIL! ';
+                }
+            }
+        }
+        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advMatchesRollNote + ':\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dcPassFailMessage + rollbotTaunt + '**';
+        botPayload.username = randomName;
+        bot.setNickname(msg, botPayload.username);
+        bot.reply(msg, botPayload.text);
+        bot.deleteMessage(msg);
+        clearInterval(idleTimer)
+        //1440000
+        idleTimer = setInterval(keepAwake, 900000);
+    }
+    else if (hasPrefix && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
         matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
         console.log(matches);
         console.log(matches[0]);
