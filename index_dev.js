@@ -66,7 +66,7 @@ bot.on("message", msg => {
     var botPayload = {};
     var missEmojiArray = [":hatched_chick:", ":poop:", ":baby_chick:", ":laughing:", ":frowning:", ":thumbsdown:"];
     var hitEmojiArray = [":bangbang:", ":clap:", ":rage:", ":hammer:", ":bomb:", ":skull:"];
-    var critArray = [" CRIT!", " AWH YEAH BIG CRITS!", " CRITTY DITTY DO!", " MMM SEXY CRIT TIMES!", " CRITATTACK!", " M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!", " NICE ONE, BRUVA!"]
+    var critArray = [" CRIT!", " AWH YEAH BIG CRITS!", " CRITTY DITTY DO!", " MMM SEXY CRIT TIMES!", " CRITATTACK!", " M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!", " NICE ONE, BRUVA!", " MERCY! THAT ROLL GAVE ME THE VAPORS!", " I LIKE THE WAY YOU ROLL, BABY"]
     var missArray = [" YOU SUCK B!", " YOU JUST HIT YOURSELF!", " SLICE! THERE GOES YA PENIS!", " CRITICAL MISS, NUBCAKES!", " WIGGIDTY WAM WAM WOZZLE YA MISSED!", " BABBY'S FIRST SWORD SWING!"," LOLOLOLOLOLOL REZ INCOMING NUB", " THAT'S RARELY GOOD", " YA DONE GOOFED", " BIFFED IT", " BIFFED IT HARD", " WELL AT LEAST YOUR PARENTS STILL LOVE YOU", " THIS IS WHY WE CAN'T HAVE NICE THINGS", " I CAN'T BELIEVE YOU'VE DONE THIS", " GOOD JOB, [BLIND CELEBRITY NAME HERE]", " RUN, JUST BAIL. FORGET YOUR PARTY MEMBERS." , " DON'T WORRY I'M SURE YOUR PARTY DOESN'T MIND CARRYING YOU", " YOU'LL MAKE A PRETTY CORPSE", " WOULD YOU LIKE YOUR REMAINS VACUUM DESICCATED?" , " FLOOR'S COLD, ISN'T IT?"];
     var nameArray = ["ZIMZAMTHEROLLYMAN", "ROLLBOT", "TRANSFORMANDROLLOUTBOT", "BOLLROT", "ROLLYPOLLYOLLYROLLBOT", "ROLLSMAN5000", "CRITOMATIC", "MISSOMATIC", "WAMBAMROLLERMAN", "ROLLYAL WITH CHEESEBOT", "PATCHES O'ROLLIHAN", "ROLLBITCH", "SNAPCRACKLEMITCHANDROLLBOT", "ROLLSLAVE", "BIGDADDYROLLS", "ROLLROLLROLLYOURBOATBOT", "ROLLANDO BLOOM", "ROLLTIDE", "HITOMATIC", "HANDYDANDYROLLBOT", "YOUR FRIENDLY NEIGHBORHOOD ROLLBOT", "ROLLANDY MARSH", "'THE' ROLLHIO STATE UNIVERSITY", "ROLLUMBUSBOT", "ROLLGAZO THE MIGHTY ROLL GOD", "DROLLPH LUNDGREN", "OOO, BAROLLCUDA", "ADROLLPH HITLER", "RNGESUS", "RANDY QUAID", "ROLLO TONY BROWN TOWN", "ROLLNADOBOT", "ROLLNADOBOT II: STILL ROLLING", "ROLLNADOBOT III: SUMMER OF ROLLNADOBOT", "ROLLNADOBOT IV: ROLL OUT", "ROLLNADOBOT V: EASY COME EASY ROLL", "ROLLNADOBOT VI: THE FINAL ROLLDOWN", "ROLLNADOBOT VII: ONE MORE FOR THE ROLL", "ROLLNADOBOT VIII: THE ROLLUNION", "ROLLNADOBOT IX: THE PERFECT ROLL", "ROLLSY O'DONNELL", "TROLLROLLOLBOT", "ROLLTANA", "CAROLLS SANTANA", "CPT SISKROLLS", "USS ENTROLLPRISEBOT", "DEEP ROLLS 9", "RANDOM NUMBER GENERATOR BOT", "BEEPBOOPHERESYOURROLL", "KING GADROLLA", "MECHAGODZIROLLABOT", "GODZILLROLLABOT", "D-BOT", "THE GREAT ROLLBANZO", "VINCENT VAN ROLLBOT", "CRAPPYROLLBOT", "BARCEROLLA FC BOT", "ROLLERDISCOBOT", "ROLLSEPH STALIN", "TEDDY ROLLSEVELT", "FRANKLIN D. ROLLSEVELT", "WINSTROLL CHURCHILL", "BENITROLL MUSSOLINI", "HIDEKI TOROLL", "ROLLEAL MADRIDBOT", "RPBOTSUCKSBOT", "RPBOTISNTSOBADBOT", "RPBOTHASALOTOFGOODQUALITIESBOT", "RPBOTISADICKBOT", "RPBOT&ROLLBOT=BFF4EBOT"]
     var randomMissEmoji = missEmojiArray[Math.floor(Math.random() * missEmojiArray.length)];
@@ -80,7 +80,10 @@ bot.on("message", msg => {
     var didMiss = false;
 
     var prefix = "/";
+
     var hasPrefix = msg.content.startsWith(prefix);
+    var advRegex = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    var rollRegex = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
 
     if (!hasPrefix) return;
 
@@ -101,8 +104,8 @@ bot.on("message", msg => {
             bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
         }
     }
-    else if (hasPrefix && msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
-        advMatches = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    else if (hasPrefix && advRegex) {
+        advMatches = advRegex;
         console.log(advMatches);
         var advOrDis = advMatches[2];
         var advOrDisText = "";
@@ -265,8 +268,8 @@ bot.on("message", msg => {
         //1440000
         idleTimer = setInterval(keepAwake, 900000);
     }
-    else if (hasPrefix && msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/)) {
-        matches = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    else if (hasPrefix && rollRegex) {
+        matches = rollRegex;
         console.log(matches);
         console.log(matches[0]);
         if (matches) {
