@@ -15,7 +15,7 @@ app.listen(port, function() {
 });
 
 // Get the email and password
-var AuthDetails = require("./auth_dev.json");
+var AuthDetails = require("./auth.json");
 
 var bot = new Discord.Client();
 
