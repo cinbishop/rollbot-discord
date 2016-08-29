@@ -61,6 +61,7 @@ bot.on("message", msg => {
     var dc_value = 0;
     var dcPassFailMessage = "";
     var rolls = [];
+
     var total = 0;
     var botPayload = {};
     var missEmojiArray = [":hatched_chick:", ":poop:", ":baby_chick:", ":laughing:", ":frowning:", ":thumbsdown:"];
@@ -265,9 +266,29 @@ bot.on("message", msg => {
         matches = rollRegex;
         var userEntry = matches[1]
         var rollsToProcess = userEntry.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/g);
+        var allRollResults = [];
         console.log(rollsToProcess);
+
         rollsToProcess.forEach(function(roll) {
-            console.log(roll);
+            var processRoll = roll.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/);
+            var rollSubTotal;
+            var subTotal;
+            times = processRoll[3];
+            die = processRoll[4];
+            if(processRoll[5]) {
+                modifier = processRoll[7];
+                modifier_value = Number(processRoll[8]);
+            }
+            for (var i = 0; i < times; i++) {
+                var currentRoll = roll(1, die);
+                var rollTotal = times * die;
+                var badRoll = times * 1;
+                rolls.push(currentRoll);
+                total += currentRoll;
+            }
+            rolls.push(currentRoll);
+            rollSubtotal = rolls.join(' + ');
+            subTotal = total;
         });
         // log entire roll command
         console.log(matches[0]);
