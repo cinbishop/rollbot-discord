@@ -30,7 +30,6 @@ bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     genChannel = bot.channels.get("name","rollbot_house").id;
     //1440000
-    idleTimer = setInterval(keepAwake, 900000);
     bot.setStatus("online","/roll help for syntax");
     bot.channels.get("id",genChannel).sendMessage("I'm back, baby :joy:");
 });
@@ -83,7 +82,7 @@ bot.on("message", msg => {
 
     var hasPrefix = msg.content.startsWith(prefix);
     var advRegex = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
-    var rollRegex = msg.content.match(/\/roll(\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    var rollRegex = msg.content.match(/\/roll(((\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)+)((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
 
 
     if (!hasPrefix) return;
@@ -98,12 +97,6 @@ bot.on("message", msg => {
             bot.deleteMessage(msg);
             bot.sendMessage(dmChannel, "**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message\n2 greatsword -message\n3dagger+3-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*\n\ntype '/roll help weapons' for weapons list");
         }
-        else if(msg.content.match(/\/roll help weapons$/)) {
-            var dmChannel = msg.author.id;
-            bot.reply(msg, "DM Sent");
-            bot.deleteMessage(msg);
-            bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
-        }
     }
     else if (hasPrefix && advRegex) {
         advMatches = advRegex;
@@ -116,6 +109,7 @@ bot.on("message", msg => {
         var advDCValue;
         var betterRoll;
         var betterRollModTotal;
+        var rollsArray = [];
         var advMatchesRollNote = "";
         var rollA = roll(1,die);
         var rollB = roll(1,die);
@@ -265,15 +259,21 @@ bot.on("message", msg => {
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
-        clearInterval(idleTimer)
-        //1440000
-        idleTimer = setInterval(keepAwake, 900000);
     }
     else if (hasPrefix && rollRegex) {
         console.log("rollworks");
         matches = rollRegex;
-        console.log(matches);
+        var userEntry = matches[1]
+        var rollsToProcess = userEntry.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/g);
+        console.log(rollsToProcess);
+        rollsToProcess.forEach(function(roll) {
+            console.log(roll);
+        });
+        // log entire roll command
         console.log(matches[0]);
+
+        // console.log(matches);
+        // console.log(matches[0]);
         if (matches) {
             times = 1;
             if (matches[2]) {
@@ -371,20 +371,11 @@ bot.on("message", msg => {
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
-        clearInterval(idleTimer)
-        //1440000
-        idleTimer = setInterval(keepAwake, 900000);
     }
 });
 
 function roll(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function keepAwake() {
-    awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS","Are you using RPBot?","Rolling (rolling) Rolling (rolling) Rolling down the river","Baby that's just how I roll"];
-    randomAwakeMessage = awakeArray[Math.floor(Math.random() * awakeArray.length)];
-    bot.channels.get("id",genChannel).sendMessage(randomAwakeMessage);
 }
 
 bot.loginWithToken(AuthDetails.token);

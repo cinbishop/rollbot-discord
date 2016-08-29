@@ -30,7 +30,6 @@ bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
     genChannel = bot.channels.get("name","rollbot_devrequest").id;
     //1440000
-    idleTimer = setInterval(keepAwake, 900000);
     bot.setStatus("online","/roll help for syntax");
     bot.channels.get("id",genChannel).sendMessage("I'm back, baby :joy:");
 });
@@ -80,7 +79,7 @@ bot.on("message", msg => {
     var didMiss = false;
 
     var prefix = "/";
-    
+
     var hasPrefix = msg.content.startsWith(prefix);
     var advRegex = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
     var rollRegex = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
@@ -264,9 +263,6 @@ bot.on("message", msg => {
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
-        clearInterval(idleTimer)
-        //1440000
-        idleTimer = setInterval(keepAwake, 900000);
     }
     else if (hasPrefix && rollRegex) {
         matches = rollRegex;
@@ -398,9 +394,6 @@ bot.on("message", msg => {
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
-        clearInterval(idleTimer)
-        //1440000
-        idleTimer = setInterval(keepAwake, 900000);
     }
 });
 
@@ -408,10 +401,5 @@ function roll(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function keepAwake() {
-    awakeArray = ["A rolling die gathers no moss","What? Huh? I'm awake","Oooo you touch my tra la la","SOMEBODY ROLL SOMETHING ALREADY","Rollout is the most underrated Ludacris song","ROLLBOT HUNGERS","Are you using RPBot?","Rolling (rolling) Rolling (rolling) Rolling down the river","Baby that's just how I roll"];
-    randomAwakeMessage = awakeArray[Math.floor(Math.random() * awakeArray.length)];
-    bot.channels.get("id",genChannel).sendMessage(randomAwakeMessage);
-}
 
 bot.loginWithToken(AuthDetails.token);
