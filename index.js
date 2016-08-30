@@ -31,7 +31,7 @@ bot.on("ready", () => {
     genChannel = bot.channels.get("name","rollbot_devrequest").id;
     //1440000
     bot.setStatus("online","/roll help for syntax");
-    bot.channels.get("id",genChannel).sendMessage("I'm back, baby :joy:");
+    bot.channels.get("id",genChannel).sendMessage("I'm back, baby");
 });
 
 //when the bot disconnects
@@ -47,24 +47,24 @@ bot.on("disconnected", () => {
 bot.on("message", msg => {
 
     var matches = "";
-    var advMatches = "";
     var isDCCheck = false;
     var weapons;
     var rollNote = "";
     var times = 1;
     var die = 20;
     var modifier = "+";
-    var greaterOrLess = "";
+    var greater_or_less = "";
     var modifierWrapper = "";
     var rollbotTaunt = "";
     var modifier_value = 0;
     var dc_value = 0;
-    var dcPassFailMessage = "";
+    var dc_pass_fail_message = "";
     var rolls = [];
+
     var total = 0;
     var botPayload = {};
-    var missEmojiArray = [":hatched_chick:", ":poop:", ":baby_chick:", ":laughing:", ":frowning:", ":thumbsdown:"];
-    var hitEmojiArray = [":bangbang:", ":clap:", ":rage:", ":hammer:", ":bomb:", ":skull:"];
+    var missEmojiArray = [" :hatched_chick:", " :poop:", " :baby_chick:", " :laughing:", " :frowning:", " :thumbsdown:"];
+    var hitEmojiArray = [" :bangbang:", " :clap:", " :rage:", " :hammer:", " :bomb:", " :skull:"];
     var critArray = [" CRIT!", " AWH YEAH BIG CRITS!", " CRITTY DITTY DO!", " MMM SEXY CRIT TIMES!", " CRITATTACK!", " M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!", " NICE ONE, BRUVA!", " MERCY! THAT ROLL GAVE ME THE VAPORS!", " I LIKE THE WAY YOU ROLL, BABY"]
     var missArray = [" YOU SUCK B!", " YOU JUST HIT YOURSELF!", " SLICE! THERE GOES YA PENIS!", " CRITICAL MISS, NUBCAKES!", " WIGGIDTY WAM WAM WOZZLE YA MISSED!", " BABBY'S FIRST SWORD SWING!"," LOLOLOLOLOLOL REZ INCOMING NUB", " THAT'S RARELY GOOD", " YA DONE GOOFED", " BIFFED IT", " BIFFED IT HARD", " WELL AT LEAST YOUR PARENTS STILL LOVE YOU", " THIS IS WHY WE CAN'T HAVE NICE THINGS", " I CAN'T BELIEVE YOU'VE DONE THIS", " GOOD JOB, [BLIND CELEBRITY NAME HERE]", " RUN, JUST BAIL. FORGET YOUR PARTY MEMBERS." , " DON'T WORRY I'M SURE YOUR PARTY DOESN'T MIND CARRYING YOU", " YOU'LL MAKE A PRETTY CORPSE", " WOULD YOU LIKE YOUR REMAINS VACUUM DESICCATED?" , " FLOOR'S COLD, ISN'T IT?"];
     var nameArray = ["ZIMZAMTHEROLLYMAN", "ROLLBOT", "TRANSFORMANDROLLOUTBOT", "BOLLROT", "ROLLYPOLLYOLLYROLLBOT", "ROLLSMAN5000", "CRITOMATIC", "MISSOMATIC", "WAMBAMROLLERMAN", "ROLLYAL WITH CHEESEBOT", "PATCHES O'ROLLIHAN", "ROLLBITCH", "SNAPCRACKLEMITCHANDROLLBOT", "ROLLSLAVE", "BIGDADDYROLLS", "ROLLROLLROLLYOURBOATBOT", "ROLLANDO BLOOM", "ROLLTIDE", "HITOMATIC", "HANDYDANDYROLLBOT", "YOUR FRIENDLY NEIGHBORHOOD ROLLBOT", "ROLLANDY MARSH", "'THE' ROLLHIO STATE UNIVERSITY", "ROLLUMBUSBOT", "ROLLGAZO THE MIGHTY ROLL GOD", "DROLLPH LUNDGREN", "OOO, BAROLLCUDA", "ADROLLPH HITLER", "RNGESUS", "RANDY QUAID", "ROLLO TONY BROWN TOWN", "ROLLNADOBOT", "ROLLNADOBOT II: STILL ROLLING", "ROLLNADOBOT III: SUMMER OF ROLLNADOBOT", "ROLLNADOBOT IV: ROLL OUT", "ROLLNADOBOT V: EASY COME EASY ROLL", "ROLLNADOBOT VI: THE FINAL ROLLDOWN", "ROLLNADOBOT VII: ONE MORE FOR THE ROLL", "ROLLNADOBOT VIII: THE ROLLUNION", "ROLLNADOBOT IX: THE PERFECT ROLL", "ROLLSY O'DONNELL", "TROLLROLLOLBOT", "ROLLTANA", "CAROLLS SANTANA", "CPT SISKROLLS", "USS ENTROLLPRISEBOT", "DEEP ROLLS 9", "RANDOM NUMBER GENERATOR BOT", "BEEPBOOPHERESYOURROLL", "KING GADROLLA", "MECHAGODZIROLLABOT", "GODZILLROLLABOT", "D-BOT", "THE GREAT ROLLBANZO", "VINCENT VAN ROLLBOT", "CRAPPYROLLBOT", "BARCEROLLA FC BOT", "ROLLERDISCOBOT", "ROLLSEPH STALIN", "TEDDY ROLLSEVELT", "FRANKLIN D. ROLLSEVELT", "WINSTROLL CHURCHILL", "BENITROLL MUSSOLINI", "HIDEKI TOROLL", "ROLLEAL MADRIDBOT", "RPBOTSUCKSBOT", "RPBOTISNTSOBADBOT", "RPBOTHASALOTOFGOODQUALITIESBOT", "RPBOTISADICKBOT", "RPBOT&ROLLBOT=BFF4EBOT"]
@@ -82,7 +82,8 @@ bot.on("message", msg => {
 
     var hasPrefix = msg.content.startsWith(prefix);
     var advRegex = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
-    var rollRegex = msg.content.match(/\/roll\s((\d{1,3})d(\d{1,3}))?((\d{1,3})(\s)?)?(club|dagger|greatclub|handaxe|javelin|lighthammer|mace|quarterstaff|sickle|spear|lightcrossbow|dart|shortbow|sling|battleaxe|flail|glaive|greataxe|greatsword|halberd|lance|longsword|maul|morningstar|pike|rapier|scimitar|shortsword|trident|warpick|warhammer|whip|handcrossbow|heavycrossbow|longbow)?((\s?)(\+|\-)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    var rollRegex = msg.content.match(/\/roll(((\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)+)((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+
 
     if (!hasPrefix) return;
 
@@ -94,19 +95,12 @@ bot.on("message", msg => {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
             bot.deleteMessage(msg);
-            bot.sendMessage(dmChannel, "**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**WEAPON METHOD:**\n*Syntax:* <numberofweaponsifmorethanone> <weaponname> *AND/OR* <+/-modifer> *AND/OR* <-message>\n*Examples:\nsling\nshortsword +1\n 2 longsword + 3 - message\n2 greatsword -message\n3dagger+3-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*\n\ntype '/roll help weapons' for weapons list");
-        }
-        else if(msg.content.match(/\/roll help weapons$/)) {
-            var dmChannel = msg.author.id;
-            bot.reply(msg, "DM Sent");
-            bot.deleteMessage(msg);
-            bot.sendMessage(dmChannel, "club\ndagger\ngreatclub\nhandaxe\njavelin\nlighthammer\nmace\nquarterstaff\nsickle\nspear\nlightcrossbow\ndart\nshortbow\nsling\nbattleaxe\nflail\nglaive\ngreataxe\ngreatsword\nhalberd\nlance\nlongsword\nmaul\nmorningstar\npike\nrapier\nscimitar\nshortsword\ntrident\nwarpick\nwarhammer\nwhip\nhandcrossbow\nheavycrossbow\nlongbow");
+            bot.sendMessage(dmChannel, "**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*");
         }
     }
     else if (hasPrefix && advRegex) {
-        advMatches = advRegex;
-        console.log(advMatches);
-        var advOrDis = advMatches[2];
+        console.log(advRegex);
+        var advOrDis = advRegex[2];
         var advOrDisText = "";
         var advModifier;
         var advModifierValue = 0;
@@ -114,22 +108,23 @@ bot.on("message", msg => {
         var advDCValue;
         var betterRoll;
         var betterRollModTotal;
-        var advMatchesRollNote = "";
+        var rollsArray = [];
+        var advRegexRollNote = "";
         var rollA = roll(1,die);
         var rollB = roll(1,die);
         console.log(rollA);
         console.log(rollB);
-        if(advMatches[3]) {
-            advModifier = advMatches[5];
-            advModifierValue = Number(advMatches[6]);
+        if(advRegex[3]) {
+            advModifier = advRegex[5];
+            advModifierValue = Number(advRegex[6]);
         }
-        if(advMatches[7]) {
-            advGreaterLesser = advMatches[9];
-            advDCValue = advMatches[10];
+        if(advRegex[7]) {
+            advGreaterLesser = advRegex[9];
+            advDCValue = advRegex[10];
             isDCCheck = true;
         }
-        if(advMatches[11]) {
-            advMatchesRollNote =  " (**" + advMatches[13] + "**)";
+        if(advRegex[11]) {
+            advRegexRollNote =  " (**" + advRegex[13] + "**)";
         }
         if(advOrDis == "adv") {
             advOrDisText = " *advantage*";
@@ -243,116 +238,67 @@ bot.on("message", msg => {
         if(isDCCheck) {
             if(advGreaterLesser == ">") {
                 if(betterRollModTotal > advDCValue) {
-                    dcPassFailMessage = ' > ' + advDCValue + ' PASS! '; 
+                    dc_pass_fail_message = ' > ' + advDCValue + ' PASS! '; 
                 }
                 else {
-                    dcPassFailMessage = ' < ' + advDCValue + ' FAIL! ';
+                    dc_pass_fail_message = ' < ' + advDCValue + ' FAIL! ';
                 }
             }
             else if(advGreaterLesser == "<") {
                 if(betterRollModTotal < advDCValue) {
-                    dcPassFailMessage = ' < ' + advDCValue + ' PASS! ';
+                    dc_pass_fail_message = ' < ' + advDCValue + ' PASS! ';
                 }
                 else {
-                    dcPassFailMessage = ' > ' + advDCValue + ' FAIL! ';
+                    dc_pass_fail_message = ' > ' + advDCValue + ' FAIL! ';
                 }
             }
         }
-        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advMatchesRollNote + '\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dcPassFailMessage + rollbotTaunt + '**';
+        botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advRegexRollNote + '\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
         bot.deleteMessage(msg);
     }
+    /*! IF ITS A REGULAR ROLL **/
     else if (hasPrefix && rollRegex) {
-        matches = rollRegex;
-        console.log(matches);
-        console.log(matches[0]);
-        if (matches) {
-            times = 1;
-            if (matches[2]) {
-                times = matches[2];
-            }
-            if (matches[3]) {
-                die = matches[3];
-            }
-            if (matches[4] && matches[5]) {
-                times = matches[5];
-            }
-            if (matches[7]) {
-                if (/club|dagger|lighthammer|sickle|dart|sling|whip/.test(matches[7])) {
-                    die = 4;
-                }
-                if (/handaxe|javelin|mace|quarterstaff|spear|shortbow|scimitar|shortsword|trident|handcrossbow|greatsword|maul/.test(matches[7])) {
-                    if (matches[7] == "greatsword" || matches[7] == "maul") {
-                        times = times * 2;
-                    }
-                    die = 6;
-                }
-                if (/greatclub|lightcrossbow|battleaxe|flail|longsword|morningstar|rapier|warpick|warhammer|longbow/.test(matches[7])) {
-                    die = 8;
-                }
-                if (/glaive|halberd|pike|heavycrossbow/.test(matches[7])) {
-                    die = 10;
-                }
-                if (/greataxe|lance/.test(matches[7])) {
-                    die = 12;
-                }
-            }
-            if (matches[8]) {
-                modifier = matches[10];
-                modifier_value = Number(matches[11]);
-            }
-            if (matches[12]) {
-                greaterOrLess = matches[14];
-                dc_value = Number(matches[15]);
-                isDCCheck = true;
-            }
-            if (matches[16]) {
-                rollNote = "(**" + matches[18] + "**)";
-            }
-        }
+        var processedRolls = [];
+        var formattedDice = [];
+        var formattedRollsAndMods = "";
+        var grandTotal = null;
+        console.log(rollRegex);
+        /*! GET FULL USER ENTRY IN CASE OF MULTIROLL **/
+        var userEntry = rollRegex[1];
+        /*! CHECK FULL ENTRY FOR INDIVIDUAL ROLLS **/
+        var rollsToProcess = userEntry.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/g);
+        rollsToProcess.pop();
+        console.log(rollsToProcess);
+        /*! CHECK TO SEE IF THERE IS ONLY ONE ROLL REQUESTED **/
 
-        //send a message to the channel the ping message was sent in.
-        //bot.sendMessage(msg, "pong!");
-
-        //alert the console
-        //console.log("pong-ed " + msg.author.username);
-    }
-
-    if (matches) {
-        // roll dice and sum
-        for (var i = 0; i < times; i++) {
-            var currentRoll = roll(1, die);
-            var rollTotal = times * die;
-            var badRoll = times * 1;
-            rolls.push(currentRoll);
-            total += currentRoll;
-        }
-
-        if (modifier_value) {
-            var unmodifiedTotal = total;
-
-            if (unmodifiedTotal === rollTotal) {
-                rollbotTaunt = randomCrit;
-                didCrit = true;
-            } else if (unmodifiedTotal === badRoll) {
-                rollbotTaunt = randomMiss;
-                didMiss = true;
-            } else {
-                rollbotTaunt = ""
+        rollsToProcess.forEach(function(data) {
+            var processRoll = data.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/);
+            var times = Number(processRoll[3]);
+            var die = Number(processRoll[4]);
+            var rolls = [];
+            var total = 0;
+            var modifierWrapper = "";
+            var diceWrapper = "";
+            if(processRoll[5]) {
+                var modifier = processRoll[7];
+                var modifier_value = Number(processRoll[8]);
             }
-
-            if (modifier == '+') {
-                total = total + modifier_value;
-                console.log(total)
-            } else if (modifier == '-') {
-                total = total - modifier_value;
-                console.log(total)
+            else {
+                console.log('no mod');
+                var modifier = null;
+                var modifier_value = null;
             }
-
-            modifierWrapper = ' (' + modifier + modifier_value + ')';
-        } else {
+            for (var i = 0; i < times; i++) {
+                var currentRoll = roll(1,die);
+                var rollTotal = times * die;
+                var badRoll = times * 1;
+                    rolls.push(currentRoll);
+                    total += currentRoll;
+            }
+            /*! DETECT CRITS && CRIT MISSES **/
             if (total === rollTotal) {
                 rollbotTaunt = randomCrit;
                 didCrit = true;
@@ -360,36 +306,59 @@ bot.on("message", msg => {
                 rollbotTaunt = randomMiss;
                 didMiss = true;
             } else {
-                rollbotTaunt = ""
+                rollbotTaunt = "";
             }
+            /*! HANDLE MODIFIER **/
+            if (modifier_value) {
+                if (modifier == '+') {
+                    total = total + modifier_value;
+                } else if (modifier == '-') {
+                    total = total - modifier_value;
+                }
+
+                modifierWrapper = ' (' + modifier + modifier_value + ')';
+            }
+            diceWrapper = times+'d'+die; 
+            processedRolls.push({
+                'dice':diceWrapper,
+                'rolls':rolls,
+                'modifier':modifierWrapper,
+                'total':total
+            });           
+        });
+        processedRolls.forEach(function(data) {
+            formattedDice.push(data.dice);
+            formattedRollsAndMods += '\n' + data.rolls.join(' + ') + data.modifier;
+            grandTotal += data.total;
+        });
+        console.log(formattedDice);
+        if (rollRegex[10]) {
+            greater_or_less = rollRegex[12];
+            dc_value = Number(rollRegex[13]);
+            isDCCheck = true;
         }
         if(isDCCheck) {
-            if(greaterOrLess == ">") {
-                if(total > dc_value) {
-                    dcPassFailMessage = ' > ' + dc_value + ' PASS! '; 
+            if(greater_or_less == ">") {
+                if(grandTotal > dc_value) {
+                    dc_pass_fail_message = ' > ' + dc_value + ' PASS! '; 
                 }
                 else {
-                    dcPassFailMessage = ' < ' + dc_value  + ' FAIL! ';
+                    dc_pass_fail_message = ' < ' + dc_value  + ' FAIL! ';
                 }
             }
-            else if(greaterOrLess == "<") {
-                if(total < dc_value) {
-                    dcPassFailMessage = ' < ' + dc_value + ' PASS! ';
+            else if(greater_or_less == "<") {
+                if(grandTotal < dc_value) {
+                    dc_pass_fail_message = ' < ' + dc_value + ' PASS! ';
                 }
                 else {
-                    dcPassFailMessage = ' > ' + dc_value + ' FAIL! ';
+                    dc_pass_fail_message = ' > ' + dc_value + ' FAIL! ';
                 }
             }
         }
-        botPayload.text = 'you rolled ' + times + 'd' + die + rollNote + ':\n' + rolls.join(' + ') + modifierWrapper + ' = ** ' + total + dcPassFailMessage + rollbotTaunt + '**';
-        if (didCrit) {
-
-        } else if (didMiss) {
-
+        if (rollRegex[14]) {
+            rollNote = "(**" + rollRegex[16] + "**)";
         }
-        else {
-            bot.setStatus("online","/roll help for syntax");
-        }
+        botPayload.text = 'you rolled ' + formattedDice.join(' ') + rollNote + ':' + formattedRollsAndMods + ' = ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
@@ -400,6 +369,5 @@ bot.on("message", msg => {
 function roll(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
 
 bot.loginWithToken(AuthDetails.token);
