@@ -87,10 +87,7 @@ bot.on("message", msg => {
 
     if (!hasPrefix) return;
 
-    if (hasPrefix && msg.content.match(/\/roll$/)) {
-        matches = msg.content.match(/\/roll$/);
-    } 
-    else if (hasPrefix && msg.content.match(/\/roll help/)) {
+    if (hasPrefix && msg.content.match(/\/roll help/)) {
         if(msg.content.match(/\/roll help$/)) {
             var dmChannel = msg.author.id;
             bot.reply(msg, "DM Sent");
@@ -267,6 +264,9 @@ bot.on("message", msg => {
         var grandTotal = null;
         console.log(rollRegex);
         /*! GET FULL USER ENTRY IN CASE OF MULTIROLL **/
+        if(rollRegex[1] === "") {
+            rollRegex[1] = "1d20";
+        }
         var userEntry = rollRegex[1];
         /*! CHECK FULL ENTRY FOR INDIVIDUAL ROLLS **/
         var rollsToProcess = userEntry.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/g);
@@ -276,8 +276,8 @@ bot.on("message", msg => {
 
         rollsToProcess.forEach(function(data) {
             var processRoll = data.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/);
-            var times = Number(processRoll[3]);
-            var die = Number(processRoll[4]);
+            var times = Number(processRoll[3]) || 1;
+            var die = Number(processRoll[4]) || 20;
             var rolls = [];
             var total = 0;
             var modifierWrapper = "";
