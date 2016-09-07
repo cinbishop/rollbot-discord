@@ -63,6 +63,7 @@ bot.on("message", msg => {
 
     var total = 0;
     var botPayload = {};
+    var greetingArray = ["here's your rolls, hotstuff!", "I like it when you roll me like that!" , "I stole these from a wizard!" , "hope these numbers don't break your immersion!" , "many Bothans died to get these rolls." , "these aren't random, they're just my favorites." , "I roll so you don't have to." , "Biscuits? No, I'll take the rolls." , "here's the best rolls you can't eat!" , "rest assured, I did this on purpose." , "did you order some random numbers?" , "here you go!" , "did I do good?" , "did I do bad?" , "rolled by hand!"];
     var missEmojiArray = [" :hatched_chick:", " :poop:", " :baby_chick:", " :laughing:", " :frowning:", " :thumbsdown:"];
     var hitEmojiArray = [" :bangbang:", " :clap:", " :rage:", " :hammer:", " :bomb:", " :skull:"];
     var critArray = [" CRIT!", " AWH YEAH BIG CRITS!", " CRITTY DITTY DO!", " MMM SEXY CRIT TIMES!", " CRITATTACK!", " M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!", " NICE ONE, BRUVA!", " MERCY! THAT ROLL GAVE ME THE VAPORS!", " I LIKE THE WAY YOU ROLL, BABY"]
@@ -73,6 +74,7 @@ bot.on("message", msg => {
     var randomCrit = critArray[Math.floor(Math.random() * critArray.length)] + randomHitEmoji;
     var randomMiss = missArray[Math.floor(Math.random() * missArray.length)] + randomMissEmoji;
     var randomName = nameArray[Math.floor(Math.random() * nameArray.length)];
+    var randomGreeting = greetingArray[Math.floor(Math.random() * greetingArray.length)];
 
 
     var didCrit = false;
@@ -264,7 +266,7 @@ bot.on("message", msg => {
         var grandTotal = null;
         console.log(rollRegex);
         /*! GET FULL USER ENTRY IN CASE OF MULTIROLL **/
-        if(rollRegex[1] === "") {
+        if(rollRegex[1] === "") { /*! HANDLE DEFAULT /ROLL ENTRY **/
             rollRegex[1] = "1d20";
         }
         var userEntry = rollRegex[1];
@@ -326,9 +328,9 @@ bot.on("message", msg => {
                 'total':total
             });           
         });
-        processedRolls.forEach(function(data) {
+        processedRolls.forEach(function(data, i) {
             formattedDice.push(data.dice);
-            formattedRollsAndMods += '\n' + data.rolls.join(' + ') + data.modifier;
+            formattedRollsAndMods += '\n' + '**' + formattedDice[i] + '**' + ': ' + data.rolls.join(' + ') + data.modifier;
             grandTotal += data.total;
         });
         console.log(formattedDice);
@@ -358,7 +360,7 @@ bot.on("message", msg => {
         if (rollRegex[14]) {
             rollNote = "(**" + rollRegex[16] + "**)";
         }
-        botPayload.text = 'you rolled ' + formattedDice.join(' ') + rollNote + ':' + formattedRollsAndMods + ' = ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
+        botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' = ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
