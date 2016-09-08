@@ -63,11 +63,11 @@ bot.on("message", msg => {
 
     var total = 0;
     var botPayload = {};
-    var greetingArray = ["here's your rolls, hotstuff!", "I like it when you roll me like that!" , "I stole these from a wizard!" , "hope these numbers don't break your immersion!" , "many Bothans died to get these rolls." , "these aren't random, they're just my favorites." , "I roll so you don't have to." , "Biscuits? No, I'll take the rolls." , "here's the best rolls you can't eat!" , "rest assured, I did this on purpose." , "did you order some random numbers?" , "here you go!" , "did I do good?" , "did I do bad?" , "rolled by hand!"];
+    var greetingArray = ["here's your rolls, hotstuff!", "I like it when you roll me like that!" , "I stole these from a wizard!" , "hope these numbers don't break your immersion!" , "many Bothans died to get these rolls." , "these aren't random, they're just my favorites." , "I roll so you don't have to." , "Biscuits? No, I'll take the rolls." , "here's the best rolls you can't eat!" , "rest assured, I did this on purpose." , "did you order some random numbers?" , "here you go!" , "did I do good?" , "did I do bad?" , "rolled by hand!" , "I hope these are as high as I am right now." , "I hope these are as long as your dong hangs." , "these are free-range organic numbers!" , "use these for good." , "use these for evil." , "use these to beat ass." , "use these to avoid getting your ass beat." , "a roll you requested and a roll you shall have!" , "you have 3 more free rolls remaining in your trial! Upgrade now!" , "you have 2 more free rolls remaining in your trial! Upgrade now!" , "you have 1 more free roll remaining in your trial! Upgrade now!" , "I'm the Gandalf of numbers, baby!" , "I'm the Dumbledore of numbers, baby!" , "I'm the Merlin of numbers, baby!" , "incoming transmission from the Big Giant Head!" , "wouldn't it be weird if I gave you those numbers from Lost?" , "a hobo gave me these." , "I fought a goose for these." , "A tiny man whispered these numbers to me in my robodreams!" , "sometimes I wish I was a djbot." , "here's your winning numbers!" , "here's your losing numbers, sucker!" , "Willy Wonka ain't got shit on me! Here's your rolls." , "I rolled these by mistake, here you go." , "beep boop outputting rolls!" , "rollbot in the house, bitches!" , "ain't nobody roll like me, baby." , "rollbot rolls because rolling is all rollbot knows." , "digital dice?! now I've seen everything!" , "rollbot is feeling merciful." , "rollbot is feeling vengeful." , "rollbot hungers for the great taste of Charleston Chew!" , "this roll brought to you by Slurm!" , "this roll brought to you by Slug-o-Cola! The Slimiest Cola in the Galaxy!" , "this roll brought to you by Zaphod's Own: Pan Galactic Gargle Blaster!" , "oh fine, here's a roll. Lazy." , "thank you for rolling me today!" , "Congrats! You're the free crit winner of the day! NOT."];
     var missEmojiArray = [" :hatched_chick:", " :poop:", " :baby_chick:", " :laughing:", " :frowning:", " :thumbsdown:"];
     var hitEmojiArray = [" :bangbang:", " :clap:", " :rage:", " :hammer:", " :bomb:", " :skull:"];
     var critArray = [" CRIT!", " AWH YEAH BIG CRITS!", " CRITTY DITTY DO!", " MMM SEXY CRIT TIMES!", " CRITATTACK!", " M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!", " NICE ONE, BRUVA!", " MERCY! THAT ROLL GAVE ME THE VAPORS!", " I LIKE THE WAY YOU ROLL, BABY"]
-    var missArray = [" YOU SUCK B!", " YOU JUST HIT YOURSELF!", " SLICE! THERE GOES YA PENIS!", " CRITICAL MISS, NUBCAKES!", " WIGGIDTY WAM WAM WOZZLE YA MISSED!", " BABBY'S FIRST SWORD SWING!"," LOLOLOLOLOLOL REZ INCOMING NUB", " THAT'S RARELY GOOD", " YA DONE GOOFED", " BIFFED IT", " BIFFED IT HARD", " WELL AT LEAST YOUR PARENTS STILL LOVE YOU", " THIS IS WHY WE CAN'T HAVE NICE THINGS", " I CAN'T BELIEVE YOU'VE DONE THIS", " GOOD JOB, [BLIND CELEBRITY NAME HERE]", " RUN, JUST BAIL. FORGET YOUR PARTY MEMBERS." , " DON'T WORRY I'M SURE YOUR PARTY DOESN'T MIND CARRYING YOU", " YOU'LL MAKE A PRETTY CORPSE", " WOULD YOU LIKE YOUR REMAINS VACUUM DESICCATED?" , " FLOOR'S COLD, ISN'T IT?"];
+    var missArray = [" YOU SUCK B!", " YOU JUST HIT YOURSELF!", " SLICE! THERE GOES YA PENIS!", " CALL THE MEATWAGON!", " OH NO! YOU SUCK AGAIN!", " BABBY'S FIRST SWORD SWING!"," LOLOLOLOLOLOL REZ INCOMING NUB", " THAT'S RARELY GOOD", " YA DONE GOOFED", " BIFFED IT", " BIFFED IT HARD", " WELL AT LEAST YOUR PARENTS STILL LOVE YOU", " THIS IS WHY WE CAN'T HAVE NICE THINGS", " I CAN'T BELIEVE YOU'VE DONE THIS", " GOOD JOB, [BLIND CELEBRITY NAME HERE]", " RUN, JUST BAIL. FORGET YOUR PARTY MEMBERS." , " DON'T WORRY I'M SURE YOUR PARTY DOESN'T MIND CARRYING YOU", " YOU'LL MAKE A PRETTY CORPSE", " WOULD YOU LIKE YOUR REMAINS VACUUM DESICCATED?" , " THE FLOOR IS COLD, ISN'T IT?"];
     var nameArray = ["ZIMZAMTHEROLLYMAN", "ROLLBOT", "TRANSFORMANDROLLOUTBOT", "BOLLROT", "ROLLYPOLLYOLLYROLLBOT", "ROLLSMAN5000", "CRITOMATIC", "MISSOMATIC", "WAMBAMROLLERMAN", "ROLLYAL WITH CHEESEBOT", "PATCHES O'ROLLIHAN", "ROLLBITCH", "SNAPCRACKLEMITCHANDROLLBOT", "ROLLSLAVE", "BIGDADDYROLLS", "ROLLROLLROLLYOURBOATBOT", "ROLLANDO BLOOM", "ROLLTIDE", "HITOMATIC", "HANDYDANDYROLLBOT", "YOUR FRIENDLY NEIGHBORHOOD ROLLBOT", "ROLLANDY MARSH", "'THE' ROLLHIO STATE UNIVERSITY", "ROLLUMBUSBOT", "ROLLGAZO THE MIGHTY ROLL GOD", "DROLLPH LUNDGREN", "OOO, BAROLLCUDA", "ADROLLPH HITLER", "RNGESUS", "RANDY QUAID", "ROLLO TONY BROWN TOWN", "ROLLNADOBOT", "ROLLNADOBOT II: STILL ROLLING", "ROLLNADOBOT III: SUMMER OF ROLLNADOBOT", "ROLLNADOBOT IV: ROLL OUT", "ROLLNADOBOT V: EASY COME EASY ROLL", "ROLLNADOBOT VI: THE FINAL ROLLDOWN", "ROLLNADOBOT VII: ONE MORE FOR THE ROLL", "ROLLNADOBOT VIII: THE ROLLUNION", "ROLLNADOBOT IX: THE PERFECT ROLL", "ROLLSY O'DONNELL", "TROLLROLLOLBOT", "ROLLTANA", "CAROLLS SANTANA", "CPT SISKROLLS", "USS ENTROLLPRISEBOT", "DEEP ROLLS 9", "RANDOM NUMBER GENERATOR BOT", "BEEPBOOPHERESYOURROLL", "KING GADROLLA", "MECHAGODZIROLLABOT", "GODZILLROLLABOT", "D-BOT", "THE GREAT ROLLBANZO", "VINCENT VAN ROLLBOT", "CRAPPYROLLBOT", "BARCEROLLA FC BOT", "ROLLERDISCOBOT", "ROLLSEPH STALIN", "TEDDY ROLLSEVELT", "FRANKLIN D. ROLLSEVELT", "WINSTROLL CHURCHILL", "BENITROLL MUSSOLINI", "HIDEKI TOROLL", "ROLLEAL MADRIDBOT", "RPBOTSUCKSBOT", "RPBOTISNTSOBADBOT", "RPBOTHASALOTOFGOODQUALITIESBOT", "RPBOTISADICKBOT", "RPBOT&ROLLBOT=BFF4EBOT"]
     var randomMissEmoji = missEmojiArray[Math.floor(Math.random() * missEmojiArray.length)];
     var randomHitEmoji = hitEmojiArray[Math.floor(Math.random() * hitEmojiArray.length)];
@@ -264,6 +264,8 @@ bot.on("message", msg => {
         var formattedDice = [];
         var formattedRollsAndMods = "";
         var grandTotal = null;
+        var maxRoll = null;
+        var minRoll = null;
         console.log(rollRegex);
         /*! GET FULL USER ENTRY IN CASE OF MULTIROLL **/
         if(rollRegex[1] === "") { /*! HANDLE DEFAULT /ROLL ENTRY **/
@@ -284,6 +286,7 @@ bot.on("message", msg => {
             var total = 0;
             var modifierWrapper = "";
             var diceWrapper = "";
+            minRoll += times * 1;
             if(processRoll[5]) {
                 var modifier = processRoll[7];
                 var modifier_value = Number(processRoll[8]);
@@ -295,20 +298,10 @@ bot.on("message", msg => {
             }
             for (var i = 0; i < times; i++) {
                 var currentRoll = roll(1,die);
-                var rollTotal = times * die;
-                var badRoll = times * 1;
+                var goodRoll = times * die;
                     rolls.push(currentRoll);
                     total += currentRoll;
-            }
-            /*! DETECT CRITS && CRIT MISSES **/
-            if (total === rollTotal) {
-                rollbotTaunt = randomCrit;
-                didCrit = true;
-            } else if (total === badRoll) {
-                rollbotTaunt = randomMiss;
-                didMiss = true;
-            } else {
-                rollbotTaunt = "";
+                    maxRoll += goodRoll;
             }
             /*! HANDLE MODIFIER **/
             if (modifier_value) {
@@ -328,11 +321,22 @@ bot.on("message", msg => {
                 'total':total
             });           
         });
+        console.log('min: '+minRoll);
         processedRolls.forEach(function(data, i) {
             formattedDice.push(data.dice);
-            formattedRollsAndMods += '\n' + '**' + formattedDice[i] + '**' + ': ' + data.rolls.join(' + ') + data.modifier;
+            formattedRollsAndMods += '\n' + '**' + formattedDice[i] + '**' + ': ' + data.rolls.join(' + ') + data.modifier + ' = ' + data.total;
             grandTotal += data.total;
         });
+        /*! DETECT CRITS && CRIT MISSES **/
+        if (grandTotal === maxRoll) {
+            rollbotTaunt = randomCrit;
+            randomGreeting = "Oh you're gonna be happy!"
+        } else if (grandTotal === minRoll) {
+            rollbotTaunt = randomMiss;
+            randomGreeting = "Oh you're gonna be pissed!"
+        } else {
+            rollbotTaunt = "";
+        }
         console.log(formattedDice);
         if (rollRegex[10]) {
             greater_or_less = rollRegex[12];
@@ -360,7 +364,7 @@ bot.on("message", msg => {
         if (rollRegex[14]) {
             rollNote = "(**" + rollRegex[16] + "**)";
         }
-        botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' = ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
+        botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' \nTotal: ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
         bot.setNickname(msg, botPayload.username);
         bot.reply(msg, botPayload.text);
