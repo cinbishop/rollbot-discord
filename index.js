@@ -236,7 +236,7 @@ bot.on("message", msg => {
         }
         if(isDCCheck) {
             if(advGreaterLesser == ">") {
-                if(betterRollModTotal > advDCValue) {
+                if(betterRollModTotal >= advDCValue) {
                     dc_pass_fail_message = ' > ' + advDCValue + ' PASS! '; 
                 }
                 else {
@@ -244,7 +244,7 @@ bot.on("message", msg => {
                 }
             }
             else if(advGreaterLesser == "<") {
-                if(betterRollModTotal < advDCValue) {
+                if(betterRollModTotal <= advDCValue) {
                     dc_pass_fail_message = ' < ' + advDCValue + ' PASS! ';
                 }
                 else {
@@ -345,7 +345,7 @@ bot.on("message", msg => {
         }
         if(isDCCheck) {
             if(greater_or_less == ">") {
-                if(grandTotal > dc_value) {
+                if(grandTotal >= dc_value) {
                     dc_pass_fail_message = ' > ' + dc_value + ' PASS! '; 
                 }
                 else {
@@ -353,7 +353,7 @@ bot.on("message", msg => {
                 }
             }
             else if(greater_or_less == "<") {
-                if(grandTotal < dc_value) {
+                if(grandTotal <= dc_value) {
                     dc_pass_fail_message = ' < ' + dc_value + ' PASS! ';
                 }
                 else {
