@@ -14,7 +14,7 @@ var randomAwakeMessage;
 //when the bot is ready
 bot.on("ready", () => {
     console.log(`Ready to begin! Serving in ${bot.guilds.size} channels`);
-    console.log(bot.user.client);
+    bot.user.setStatus('online','/roll help for help!');
 });
 
 //when the bot disconnects
@@ -349,7 +349,7 @@ bot.on("message", msg => {
         }
         botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' \nTotal: ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
-        msg.member.setNickname(botPayload.username);
+        msg.guild.member(bot.user).setNickname(botPayload.username);
         msg.reply(botPayload.text);
         msg.delete;
     }
