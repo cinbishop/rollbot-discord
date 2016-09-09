@@ -1,18 +1,4 @@
-var http = require('http');
 var Discord = require("discord.js");
-var express = require("express");
-
-var app = express();
-var port = process.env.PORT || 3000;
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(400).send(err.message);
-});
-
-app.listen(port, function() {
-    console.log('rollbot listening on port ' + port);
-});
 
 // Get the email and password
 var AuthDetails = require("./auth_dev.json");
@@ -27,11 +13,8 @@ var randomAwakeMessage;
 
 //when the bot is ready
 bot.on("ready", () => {
-    console.log(`Ready to begin! Serving in ${bot.channels.length} channels`);
-    genChannel = bot.channels.get("name","rollbot_house").id;
-    //1440000
-    bot.setStatus("online","/roll help for syntax");
-    bot.channels.get("id",genChannel).sendMessage("I'm back, baby");
+    console.log(`Ready to begin! Serving in ${bot.guilds.size} channels`);
+    console.log(bot.user.client);
 });
 
 //when the bot disconnects
@@ -45,7 +28,7 @@ bot.on("disconnected", () => {
 
 //when the bot receives a message
 bot.on("message", msg => {
-
+    console.log(msg);
     var matches = "";
     var isDCCheck = false;
     var weapons;
@@ -91,10 +74,9 @@ bot.on("message", msg => {
 
     if (hasPrefix && msg.content.match(/\/roll help/)) {
         if(msg.content.match(/\/roll help$/)) {
-            var dmChannel = msg.author.id;
-            bot.reply(msg, "DM Sent");
-            bot.deleteMessage(msg);
-            bot.sendMessage(dmChannel, "**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*");
+            msg.reply("DM Sent");
+            msg.delete;
+            msg.author.sendMessage("**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*");
         }
     }
     else if (hasPrefix && advRegex) {
@@ -299,6 +281,7 @@ bot.on("message", msg => {
             for (var i = 0; i < times; i++) {
                 var currentRoll = roll(1,die);
                 var goodRoll = times * die;
+                console.log(currentRoll);
                     rolls.push(currentRoll);
                     total += currentRoll;
                     maxRoll += goodRoll;
@@ -366,9 +349,9 @@ bot.on("message", msg => {
         }
         botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' \nTotal: ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
-        bot.setNickname(msg, botPayload.username);
-        bot.reply(msg, botPayload.text);
-        bot.deleteMessage(msg);
+        msg.member.setNickname(botPayload.username);
+        msg.reply(botPayload.text);
+        msg.delete;
     }
 });
 
@@ -376,4 +359,4 @@ function roll(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-bot.loginWithToken(AuthDetails.token);
+bot.login(AuthDetails.token);
