@@ -349,7 +349,7 @@ bot.on("message", msg => {
         }
         botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' \nTotal: ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
         botPayload.username = randomName;
-        //msg.guild.member(bot.user).setNickname(botPayload.username);
+        msg.guild.member(bot.user).setNickname(botPayload.username);
         msg.delete();
         msg.reply(botPayload.text);
     }
