@@ -28,7 +28,6 @@ bot.on("disconnected", () => {
 
 //when the bot receives a message
 bot.on("message", msg => {
-    console.log(msg);
     var matches = "";
     var isDCCheck = false;
     var weapons;
@@ -46,7 +45,7 @@ bot.on("message", msg => {
 
     var total = 0;
     var botPayload = {};
-    var greetingArray = ["here's your rolls, hotstuff!", "I like it when you roll me like that!" , "I stole these from a wizard!" , "hope these numbers don't break your immersion!" , "many Bothans died to get these rolls." , "these aren't random, they're just my favorites." , "I roll so you don't have to." , "Biscuits? No, I'll take the rolls." , "here's the best rolls you can't eat!" , "rest assured, I did this on purpose." , "did you order some random numbers?" , "here you go!" , "did I do good?" , "did I do bad?" , "rolled by hand!" , "I hope these are as high as I am right now." , "I hope these are as long as your dong hangs." , "these are free-range organic numbers!" , "use these for good." , "use these for evil." , "use these to beat ass." , "use these to avoid getting your ass beat." , "a roll you requested and a roll you shall have!" , "you have 3 more free rolls remaining in your trial! Upgrade now!" , "you have 2 more free rolls remaining in your trial! Upgrade now!" , "you have 1 more free roll remaining in your trial! Upgrade now!" , "I'm the Gandalf of numbers, baby!" , "I'm the Dumbledore of numbers, baby!" , "I'm the Merlin of numbers, baby!" , "incoming transmission from the Big Giant Head!" , "wouldn't it be weird if I gave you those numbers from Lost?" , "a hobo gave me these." , "I fought a goose for these." , "A tiny man whispered these numbers to me in my robodreams!" , "sometimes I wish I was a djbot." , "here's your winning numbers!" , "here's your losing numbers, sucker!" , "Willy Wonka ain't got shit on me! Here's your rolls." , "I rolled these by mistake, here you go." , "beep boop outputting rolls!" , "rollbot in the house, bitches!" , "ain't nobody roll like me, baby." , "rollbot rolls because rolling is all rollbot knows." , "digital dice?! now I've seen everything!" , "rollbot is feeling merciful." , "rollbot is feeling vengeful." , "rollbot hungers for the great taste of Charleston Chew!" , "this roll brought to you by Slurm!" , "this roll brought to you by Slug-o-Cola! The Slimiest Cola in the Galaxy!" , "this roll brought to you by Zaphod's Own: Pan Galactic Gargle Blaster!" , "oh fine, here's a roll. Lazy." , "thank you for rolling me today!" , "Congrats! You're the free crit winner of the day! NOT."];
+    var greetingArray = ["here's your rolls, hotstuff!", "I like it when you roll me like that!" , "I stole these from a wizard!" , "hope these numbers don't break your immersion!" , "many Bothans died to get these rolls." , "these aren't random, they're just my favorites." , "I roll so you don't have to." , "Biscuits? No, I'll take the rolls." , "here's the best rolls you can't eat!" , "rest assured, I did this on purpose." , "did you order some random numbers?" , "here you go!" , "did I do good?" , "did I do bad?" , "rolled by hand!" , "I hope these are as high as I am right now." , "I hope these are as low as your dong hangs." , "these are free-range organic numbers!" , "use these for good." , "use these for evil." , "use these to beat ass." , "use these to avoid getting your ass beat." , "a roll you requested and a roll you shall have!" , "you have 3 more free rolls remaining in your trial! Upgrade now!" , "you have 2 more free rolls remaining in your trial! Upgrade now!" , "you have 1 more free roll remaining in your trial! Upgrade now!" , "I'm the Gandalf of numbers, baby!" , "I'm the Dumbledore of numbers, baby!" , "I'm the Merlin of numbers, baby!" , "incoming transmission from the Big Giant Head!" , "wouldn't it be weird if I gave you those numbers from Lost?" , "a hobo gave me these." , "I fought a goose for these." , "A tiny man whispered these numbers to me in my robodreams!" , "sometimes I wish I was a djbot." , "here's your winning numbers!" , "here's your losing numbers, sucker!" , "Willy Wonka ain't got shit on me! Here's your rolls." , "I rolled these by mistake, here you go." , "beep boop outputting rolls!" , "rollbot in the house, bitches!" , "ain't nobody roll like me, baby." , "rollbot rolls because rolling is all rollbot knows." , "digital dice?! now I've seen everything!" , "rollbot is feeling merciful." , "rollbot is feeling vengeful." , "rollbot hungers for the great taste of Charleston Chew!" , "this roll brought to you by Slurm!" , "this roll brought to you by Slug-o-Cola! The Slimiest Cola in the Galaxy!" , "this roll brought to you by Zaphod's Own: Pan Galactic Gargle Blaster!" , "oh fine, here's a roll. Lazy." , "thank you for rolling me today!" , "Congrats! You're the free crit winner of the day! NOT."];
     var missEmojiArray = [" :hatched_chick:", " :poop:", " :baby_chick:", " :laughing:", " :frowning:", " :thumbsdown:"];
     var hitEmojiArray = [" :bangbang:", " :clap:", " :rage:", " :hammer:", " :bomb:", " :skull:"];
     var critArray = [" CRIT!", " AWH YEAH BIG CRITS!", " CRITTY DITTY DO!", " MMM SEXY CRIT TIMES!", " CRITATTACK!", " M-M-M-MONSTER KILL!", " SUCH CRIT. MUCH DAMAGE.", " GOING... GOING... GONE!", " YAY BIG NUMBERS!", " NICE CRIT, SEXY.", " YOU DONE GOOD, KID", " CRITALCULAR!", " DOINK!", " NICE ONE, BRUVA!", " MERCY! THAT ROLL GAVE ME THE VAPORS!", " I LIKE THE WAY YOU ROLL, BABY"]
@@ -67,7 +66,7 @@ bot.on("message", msg => {
 
     var hasPrefix = msg.content.startsWith(prefix);
     var advRegex = msg.content.match(/\/roll(\s(adv|dis))((\s)?(\-|\+)\s?(\d{1,3}))?((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
-    var rollRegex = msg.content.match(/\/roll(((\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)+)((\s?)(\>|\<)\s?(\d{1,3}))?((\s)?\-\s?(.*$))?/);
+    var rollRegex = msg.content.match(/\/roll(((\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)+)((\s?)(\>|\<)\s?(\d{1,3}))?(((\s(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)+)((\s)?\-\s?(.*$))?/);
 
 
     if (!hasPrefix) return;
@@ -242,13 +241,17 @@ bot.on("message", msg => {
     }
     /*! IF ITS A REGULAR ROLL **/
     else if (hasPrefix && rollRegex) {
+        var conRoll = false;
         var processedRolls = [];
+        var conProcessedRolls = [];
         var formattedDice = [];
+        var conFormattedDice = [];
         var formattedRollsAndMods = "";
+        var conFormattedRollsAndMods = "";
         var grandTotal = null;
+        var conGrandTotal = null;
         var maxRoll = null;
         var minRoll = null;
-        console.log(rollRegex);
         /*! GET FULL USER ENTRY IN CASE OF MULTIROLL **/
         if(rollRegex[1] === "") { /*! HANDLE DEFAULT /ROLL ENTRY **/
             rollRegex[1] = "1d20";
@@ -344,14 +347,69 @@ bot.on("message", msg => {
                 }
             }
         }
-        if (rollRegex[14]) {
-            rollNote = "(**" + rollRegex[16] + "**)";
+        /*! CONDITIONAL ROLL **/
+        if (rollRegex[10] && rollRegex[14]) {
+            conRoll = true;
+            var conRollsToProcess = rollRegex[14].match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/g);
+            conRollsToProcess.pop();
+            conRollsToProcess.forEach(function(data) {
+                var processRoll = data.match(/((\s?(\d{1,3})d(\d{1,3}))?((\s?)(\+|\-)\s?(\d{1,3}))?)/);
+                var times = Number(processRoll[3]) || 1;
+                var die = Number(processRoll[4]) || 20;
+                var rolls = [];
+                var total = 0;
+                var modifierWrapper = "";
+                var diceWrapper = "";
+                if(processRoll[5]) {
+                    var modifier = processRoll[7];
+                    var modifier_value = Number(processRoll[8]);
+                }
+                else {
+                    console.log('no mod');
+                    var modifier = null;
+                    var modifier_value = null;
+                }
+                for (var i = 0; i < times; i++) {
+                    var currentRoll = roll(1,die);
+                    console.log(currentRoll);
+                        rolls.push(currentRoll);
+                        total += currentRoll;
+                }
+                /*! HANDLE MODIFIER **/
+                if (modifier_value) {
+                    if (modifier == '+') {
+                        total = total + modifier_value;
+                    } else if (modifier == '-') {
+                        total = total - modifier_value;
+                    }
+
+                    modifierWrapper = ' (' + modifier + modifier_value + ')';
+                }
+                diceWrapper = times+'d'+die; 
+                conProcessedRolls.push({
+                    'dice':diceWrapper,
+                    'rolls':rolls,
+                    'modifier':modifierWrapper,
+                    'total':total
+                });           
+            });
+            console.log('min: '+minRoll);
+            conFormattedRollsAndMods += '\n\n' + '*Conditional Roll Results*'; 
+            conProcessedRolls.forEach(function(data, i) {
+                conFormattedDice.push(data.dice);
+                conFormattedRollsAndMods += '\n' + '**' + conFormattedDice[i] + '**' + ': ' + data.rolls.join(' + ') + data.modifier + ' = ' + data.total;
+                conGrandTotal += data.total;
+            });
+            conFormattedRollsAndMods += '\nTotal: ** ' + conGrandTotal + ' (' + Math.floor(conGrandTotal/2) + ')**';
         }
-        botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' \nTotal: ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**';
+        if (rollRegex[23]) {
+            rollNote = "(**" + rollRegex[25] + "**)";
+        }
+        botPayload.text = randomGreeting +' '+ rollNote + formattedRollsAndMods + ' \nTotal: ** ' + grandTotal + dc_pass_fail_message + rollbotTaunt + '**' + conFormattedRollsAndMods;
         botPayload.username = randomName;
         msg.guild.member(bot.user).setNickname(botPayload.username);
-        msg.reply(botPayload.text);
         msg.delete();
+        msg.reply(botPayload.text);
     }
 });
 
