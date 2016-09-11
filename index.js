@@ -79,12 +79,12 @@ bot.on("message", msg => {
         if(msg.content.match(/\/roll help$/)) {
             msg.reply("DM Sent");
             msg.delete();
-            msg.author.sendMessage("**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*\n\n**CONDITIONAL ROLLING**\nSimply add the dice you wish to roll after a DC like so: /roll 1d20 > 15 2d6 -dc check and subsequent damage");
+            msg.author.sendMessage("**PREFIX:**\nAll roll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*\n\n**CONDITIONAL ROLLING**\nSimply add the dice you wish to roll after a DC like so: /roll 1d20 > 15 2d6 -dc check and subsequent damage\n\n**HELPFUL DM COMMANDS**\n*Note: DM Commands do not need to be prefixed by /roll*\n\n*Initiative Check*\nTo call for an initiative check, type: `/init go`. Rollbot will prompt your players for an initiative check. Feel free to roll initiative for your own creatures!\nTo end and report an initiative check, type `/init stop`. Rollbot will report the initiative order.");
         }
     }
     else if (hasPrefix && msg.content.match(/\/init go/) && isDM) {
         initiativeArray = [];
-        msg.channel.sendMessage(':game_die: THE DM HAS REQUEST AN INITATIVE ROLL PLEASE ROLL WITH YOUR CHARACTER NAME AS A ROLL NOTE :game_die:');
+        msg.channel.sendMessage(':game_die: ROLL FOR INITIATIVE! :game_die:');
         msg.delete();
         rollingInitiative = true;
     }
@@ -94,8 +94,13 @@ bot.on("message", msg => {
             return b.value - a.value;
         });
         initiativeArray.forEach(function(data) {
-            messageWrapper += ' ' + data.name + '(' + data.value + ') '; 
-        })
+            if(data.isDM == true) {
+                messageWrapper += ' **' + data.name + '(' + data.value + ')** ';
+            }
+            else {
+                messageWrapper += ' ' + data.name + '(' + data.value + ') '; 
+            }
+        });
         msg.channel.sendMessage(messageWrapper);
         msg.delete();
         rollingInitiative = false;
@@ -323,8 +328,9 @@ bot.on("message", msg => {
             }
             if(rollingInitiative) {
                 initiativeArray.push({
-                    'name': rollRegex[25],
-                    'value': total
+                    'name': rollRegex[25] || msg.guild.member(msg.author).nickname,
+                    'value': total,
+                    'isDM': msg.guild.member(msg.author).roles.exists('name','DM')
                 });
                 console.log(initiativeArray);
             }
