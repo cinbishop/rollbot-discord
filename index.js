@@ -75,7 +75,7 @@ bot.on("message", msg => {
         if(msg.content.match(/\/roll help$/)) {
             msg.reply("DM Sent");
             msg.delete();
-            msg.author.sendMessage("**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*");
+            msg.author.sendMessage("**PREFIX:**\nAll commands must be prefixed with /roll\n\n**DICE METHOD:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND/OR* <-message>\n*Examples:\n1d4\n3d6 +3\n2d6 + 3 - message\n1d10 -message\n3d6+1-message*\n\n**DC CHECKS:**\n*Syntax:* <number>d<sides> *AND/OR* <+/-modifier> *AND* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\n1d20 > 15\n3d6 < 10\n+5 > 15\n+ 7 <12 -message*\n\n**ADVTANGE AND DISADVATANGE:**\n*Syntax:* <adv|dis> *AND/OR* <+/-modifier> *AND/OR* [</>]<dc rating> *AND/OR* <-message>\n*Examples:\nadv\ndis +1\nadv + 5 > 15\ndis - 2 < 20 -perception\nadv + 1 - acrobatics*\n\n**CONDITIONAL ROLLING**\nSimply add the dice you wish to roll after a DC like so: /roll 1d20 > 15 2d6 -dc check and subsequent damage");
         }
     }
     else if (hasPrefix && advRegex) {
