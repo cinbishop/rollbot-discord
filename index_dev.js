@@ -88,7 +88,7 @@ bot.on("message", msg => {
         }
         else if (hasPrefix && msg.content.match(/\/init go/) && isDM) {
             initiativeArray = [];
-            msg.channel.sendMessage(':game_die: ROLL FOR INITIATIVE! :game_die:');
+            msg.channel.sendMessage(':game_die: **ROLL FOR INITIATIVE!** :game_die:');
             msg.delete();
             rollingInitiative = true;
         }
@@ -99,7 +99,7 @@ bot.on("message", msg => {
             });
             initiativeArray.forEach(function(data) {
                 if(data.isDM == true) {
-                    messageWrapper += ' **' + data.name + '(' + data.value + ') ';
+                    messageWrapper += ' **' + data.name + '(' + data.value + ')** ';
                 }
                 else {
                     messageWrapper += ' ' + data.name + '(' + data.value + ') '; 
