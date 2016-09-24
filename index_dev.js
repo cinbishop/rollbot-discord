@@ -58,6 +58,7 @@ bot.on("message", msg => {
         var isDM = msg.guild.member(msg.author).roles.exists('name','DM') || false;
 
         var total = 0;
+        var premodstotal = 0;
         var botPayload = {};
         var randomMissEmoji = missEmojiArray[Math.floor(Math.random() * missEmojiArray.length)];
         var randomHitEmoji = hitEmojiArray[Math.floor(Math.random() * hitEmojiArray.length)];
@@ -320,6 +321,7 @@ bot.on("message", msg => {
                         total += currentRoll;
                         maxRoll += goodRoll;
                 }
+                premodstotal = total;
                 /*! HANDLE MODIFIER **/
                 if (modifier_value) {
                     if (modifier == '+') {
@@ -353,10 +355,10 @@ bot.on("message", msg => {
                 grandTotal += data.total;
             });
             /*! DETECT CRITS && CRIT MISSES **/
-            if (grandTotal === maxRoll) {
+            if (premodstotal === maxRoll) {
                 rollbotTaunt = randomCrit;
                 randomGreeting = "Oh you're gonna be happy!"
-            } else if (grandTotal === minRoll) {
+            } else if (premodstotal === minRoll) {
                 rollbotTaunt = randomMiss;
                 randomGreeting = "Oh you're gonna be pissed!"
             } else {
