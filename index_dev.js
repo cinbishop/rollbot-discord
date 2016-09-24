@@ -58,7 +58,6 @@ bot.on("message", msg => {
         var isDM = msg.guild.member(msg.author).roles.exists('name','DM') || false;
 
         var total = 0;
-        var totalpremods = 0;
         var botPayload = {};
         var randomMissEmoji = missEmojiArray[Math.floor(Math.random() * missEmojiArray.length)];
         var randomHitEmoji = hitEmojiArray[Math.floor(Math.random() * hitEmojiArray.length)];
@@ -267,9 +266,9 @@ bot.on("message", msg => {
             }
             botPayload.text = 'you rolled a **'+rollA+'** and **'+rollB+'** with' + advOrDisText + advRegexRollNote + '\n' + betterRoll + modifierWrapper + ' = ** ' + betterRollModTotal + dc_pass_fail_message + rollbotTaunt + '**';
             botPayload.username = randomName;
-            bot.setNickname(msg, botPayload.username);
-            bot.reply(msg, botPayload.text);
-            bot.deleteMessage(msg);
+            msg.guild.member(bot.user).setNickname(botPayload.username);
+            msg.delete();
+            msg.reply(botPayload.text);
         }
         /*! IF ITS A REGULAR ROLL **/
         else if (hasPrefix && rollRegex) {
@@ -300,7 +299,7 @@ bot.on("message", msg => {
                 var times = Number(processRoll[3]) || 1;
                 var die = Number(processRoll[4]) || 20;
                 var rolls = [];
-                //var total = 0;
+                var total = 0;
                 var modifierWrapper = "";
                 var diceWrapper = "";
                 minRoll += times * 1;
@@ -321,7 +320,6 @@ bot.on("message", msg => {
                         total += currentRoll;
                         maxRoll += goodRoll;
                 }
-                totalpremods = total;
                 /*! HANDLE MODIFIER **/
                 if (modifier_value) {
                     if (modifier == '+') {
@@ -355,11 +353,10 @@ bot.on("message", msg => {
                 grandTotal += data.total;
             });
             /*! DETECT CRITS && CRIT MISSES **/
-            console.log('total!:' +totalpremods);
-            if (totalpremods === maxRoll) {
+            if (grandTotal === maxRoll) {
                 rollbotTaunt = randomCrit;
                 randomGreeting = "Oh you're gonna be happy!"
-            } else if (totalpremods === minRoll) {
+            } else if (grandTotal === minRoll) {
                 rollbotTaunt = randomMiss;
                 randomGreeting = "Oh you're gonna be pissed!"
             } else {
