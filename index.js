@@ -58,6 +58,7 @@ bot.on("message", msg => {
         var isDM = msg.guild.member(msg.author).roles.exists('name','DM') || false;
 
         var total = 0;
+        var totalpremods = 0;
         var botPayload = {};
         var randomMissEmoji = missEmojiArray[Math.floor(Math.random() * missEmojiArray.length)];
         var randomHitEmoji = hitEmojiArray[Math.floor(Math.random() * hitEmojiArray.length)];
@@ -299,7 +300,7 @@ bot.on("message", msg => {
                 var times = Number(processRoll[3]) || 1;
                 var die = Number(processRoll[4]) || 20;
                 var rolls = [];
-                var total = 0;
+                //var total = 0;
                 var modifierWrapper = "";
                 var diceWrapper = "";
                 minRoll += times * 1;
@@ -320,6 +321,7 @@ bot.on("message", msg => {
                         total += currentRoll;
                         maxRoll += goodRoll;
                 }
+                totalpremods = total;
                 /*! HANDLE MODIFIER **/
                 if (modifier_value) {
                     if (modifier == '+') {
@@ -353,10 +355,11 @@ bot.on("message", msg => {
                 grandTotal += data.total;
             });
             /*! DETECT CRITS && CRIT MISSES **/
-            if (grandTotal === maxRoll) {
+            console.log('total!:' +totalpremods);
+            if (totalpremods === maxRoll) {
                 rollbotTaunt = randomCrit;
                 randomGreeting = "Oh you're gonna be happy!"
-            } else if (grandTotal === minRoll) {
+            } else if (totalpremods === minRoll) {
                 rollbotTaunt = randomMiss;
                 randomGreeting = "Oh you're gonna be pissed!"
             } else {
