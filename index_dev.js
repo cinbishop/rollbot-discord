@@ -321,7 +321,7 @@ bot.on("message", msg => {
                         total += currentRoll;
                         maxRoll += goodRoll;
                 }
-                premodstotal = total;
+                premodstotal += total;
                 /*! HANDLE MODIFIER **/
                 if (modifier_value) {
                     if (modifier == '+') {
@@ -355,6 +355,7 @@ bot.on("message", msg => {
                 grandTotal += data.total;
             });
             /*! DETECT CRITS && CRIT MISSES **/
+            console.log('premod:'+premodstotal);
             if (premodstotal === maxRoll) {
                 rollbotTaunt = randomCrit;
                 randomGreeting = "Oh you're gonna be happy!"
